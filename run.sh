@@ -1,0 +1,4 @@
+--oidc-issuer-url=https://github.com
+--oidc-client-id=ca7b7eaeddbcd074f275
+--oidc-username-claim=email
+--oidc-groups-claim=groups
