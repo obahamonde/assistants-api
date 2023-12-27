@@ -36,7 +36,6 @@ jobs:
 
     - name: Install FastAPI Dependencies
       run: |
-        cd path/to/fastapi-app
         pip install -r requirements.txt
 
     # Add steps for testing, building Docker images, pushing to registry, 
