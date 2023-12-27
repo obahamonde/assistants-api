@@ -1,8 +1,0 @@
-apiVersion: kops.k8s.io/v1alpha2
-kind: Cluster
-spec:
-  kubeAPIServer:
-    oidcIssuerURL: "https://github.com"
-    oidcClientID: "ca7b7eaeddbcd074f275"
-    oidcUsernameClaim: "email"
-    oidcGroupsClaim: "groups"

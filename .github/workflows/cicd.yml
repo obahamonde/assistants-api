@@ -50,10 +50,12 @@ jobs:
 
     - name: Set up Kubernetes context
       run: |
-        aws eks update-kubeconfig --name k8s # Asegúrate de reemplazar con tus valores
-
+        aws eks update-kubeconfig --name k8s
+        kubectl config use-context arn:aws:eks:us-east-1:008356605572:cluster/k8s
+        aws eks get-token --cluster-name k8s | jq -r '.status.token' > /tmp/token 
+        kubectl config set-credentials oidc --token="$(cat /tmp/token)"
+        kubectl config set-context arn:aws:eks:us-east-1:008356605572:cluster/k8s --user=oidc
+        
     - name: Deploy to EKS
       run: |
-        kubectl apply -f manifest.yaml
-    # Deploy to AWS EKS
-    
+        kubectl apply -f k8s/deployment.yaml # Asegúrate de reemplazar con tus valores
