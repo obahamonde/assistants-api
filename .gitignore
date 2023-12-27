@@ -3,3 +3,4 @@ config.json
 .ruff_cache
 .venv
 static/*
+.DS_Store

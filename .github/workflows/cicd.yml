@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Set Up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Vue.js Dependencies
+      run: |
+        cd app
+        npm install
+
+    - name: Build Vue.js App
+      run: |
+        cd app
+        npm run build
+
+    - name: Set Up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install FastAPI Dependencies
+      run: |
+        cd path/to/fastapi-app
+        pip install -r requirements.txt
+
+    # Add steps for testing, building Docker images, pushing to registry, 
+    # and deploying to AWS EKS...
+
+    # Deploy to AWS EKS
+    - name: Get K8s Secret
+      run: |
+        kubectl get secret my-secret -o jsonpath="{.data.my-key}" | base64 --decode
+    - name: Set up Kubernetes context
+      run: |
+        kubectl config set-cluster eks-cluster --server=https://9265D9F278289E8B5AC88BB874A35B76.gr7.us-east-1.eks.amazonaws.com --insecure-skip-tls-verify=true
+        kubectl config set-credentials github-actions --token=${{ secrets.KUBE_TOKEN }}
+        kubectl config set-context eks-context --cluster=eks-cluster --user=github-actions
+        kubectl config use-context eks-context
+
+    - name: Deploy to EKS
+      run: |
+        kubectl apply -f deployment.yaml
+
