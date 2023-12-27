@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assistants-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assistants-app
+  template:
+    metadata:
+      labels:
+        app: assistants-app
+    spec:
+      containers:
+      - name: assistants-app
+        image: obahamonde/assistants-app:v4
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: app-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: assistants-app-lb
+  namespace: default
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: assistants-app

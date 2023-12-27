@@ -1,0 +1,5 @@
+config.json
+.env
+.ruff_cache
+.venv
+static/*
