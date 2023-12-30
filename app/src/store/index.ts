@@ -19,6 +19,7 @@ const useStore = defineStore("state", () => {
     messages: [] as ThreadMessageResponse[],
     files: [] as FileObjectResponse[],
     assistantRequest: {} as AssistantRequest | null,
+    chatMessages: [] as { content: string, role: "user" | "assistant" }[],
   };
   return {
     state,

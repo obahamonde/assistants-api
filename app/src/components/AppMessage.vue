@@ -10,7 +10,7 @@ defineProps<{
  <li class="col start"
       
       :class="message.role === 'user' ? 'end' : 'start'"
-      
+      w
       >
         <div class="row start p-4" v-if="message.content && message.content.length" >
           <div v-for="block in message.content">

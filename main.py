@@ -16,7 +16,6 @@ from src.services.apps.google_gmail import (
 
 load_dotenv()
 
-staticfiles = StaticFiles(directory="static", html=True)
 app = create_app()
 
 
@@ -34,6 +33,3 @@ async def function_call(text: str):
 async def sitemap_xml(url: str):
     func = SiteMapFunction(base_url=url)
     return await func()
-
-
-app.mount("/", staticfiles, name="static")

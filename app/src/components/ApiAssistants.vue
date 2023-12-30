@@ -14,6 +14,7 @@ const put = useRequest<AssistantResponse, AssistantResponse>();
 const props = defineProps<{
   user: GoogleUserInfo;
 }>();
+const show = ref<boolean>(false);
 const { state } = useStore();
 const key = props.user.id;
 const url = "/api/assistants";
@@ -53,8 +54,8 @@ const postAssistant = async (assistant: AssistantRequest) => {
   assistantRequest.instructions = "";
   loading.value = false;  
 };
-const deleteAssistant = async (id: string) => {
-  await del(`${url}/${id}?user=${key}`, undefined, {
+const deleteAssistant = async (assistant: AssistantResponse) => {
+  await del(`${url}/${assistant.id}?user=${key}`, undefined, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -89,33 +90,20 @@ onMounted(async () => {
 watchEffect(()=>state.currentAssistant=currentAssistant.value)
 </script>
 <template>
+
   <aside
-    class="w-full md:w-80 h-full fixed right-0 top-0 flex flex-col bg-gradient-to-b from-teal-500 to-lime-300 via-cyan-400 text-navy"
+    class="w-full md:w-80 h-full fixed right-0 top-0 flex flex-col bg-gradient-to-b from-teal-500 to-lime-300 via-cyan-400 text-navy" 
   >
-    <section class="flex-1 p-4 overflow-hidden">
-    <div class="col center p-4">
+    <section class="flex-1 p-4" v-if="!show">
     <div class="row center" v-if="state.currentAssistant">
       <Icon icon="mdi-chevron-left" @click="index--" class="scale-200 cp" v-if="!loading" />
-      <div class="image-container">
-        <img :src="currentAssistant.avatar" class="rf x10 sh" :class="index%2>0 ? 'animate-flip-in-x' : 'animate-flip-in-y'" v-if="!loading" />
-        <div class="overlay">
-          <p class="overlay-text">{{ currentAssistant.description }}</p>
-        </div>
-      </div>
-      <Icon icon="mdi-loading" v-if="loading" class="x4 text-accent animate-spin" />
-      <Icon icon="mdi-chevron-right" @click="index++" 
-      v-if="!loading"
-      class="scale-200 cp" />
+      <AppAssistant :current-assistant="currentAssistant" :handle-click="deleteAssistant"  :index="index"/>
+      <Icon icon="mdi-chevron-right" @click="index++" class="scale-200 cp" v-if="!loading"  />
     </div>
-      <Icon
-        icon="mdi-delete"
-        class="icon x2 z-50 hover:text-red hover:opacity-100 my-2 opacity-50"
-        @click="deleteAssistant(currentAssistant.id)"
-      />
-    </div>
-  </section>
-  <FunctionCatalogue :assistant="assistantRequest" />
-    <section class="flex-1 p-4">
+      <FunctionCatalogue :assistant="assistantRequest"/>
+     </section>
+   
+    <section class="flex-1 p-4" v-if="show">
       <form @submit.prevent="postAssistant(assistantRequest)" class="col center p-4">
         <InputFormField name="Name" @change="assistantRequest.name = $event" />
         <InputTextAreaField
@@ -124,12 +112,8 @@ watchEffect(()=>state.currentAssistant=currentAssistant.value)
         <InputTextAreaField
           name="Instructions"
           @change="assistantRequest.instructions = $event" />
-          <div dropzone="data" class="rounded-lg m-4 w-64 col center p-4 bg-gray-500 gap-4">
-            <Icon icon="mdi-lightning-bolt" class="x2  text-accent" />
-            <p class="text-center text-xs font-sans">Drop Function Definitions Here</p>
-          </div>
+        
         <BtnGradient text="Create Assistant" type="submit" class="my-6 text-center" />
       </form>
-    </section>
-  </aside>
+    </section> <BtnGradient :text="show ? 'Show Tools':'Configure Assistant'" @click="show = !show" class="my-6 text-center" /></aside>
 </template>

@@ -41,3 +41,5 @@ google-auth-oauthlib
 google-auth
 bs4
 lxml
+python-dotenv
+jinja2

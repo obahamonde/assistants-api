@@ -4,31 +4,15 @@ from typing import Any, AsyncIterable, Literal
 from fastapi import APIRouter  # type: ignore
 from fastapi.responses import StreamingResponse  # type: ignore
 from openai import AsyncOpenAI
-from pinedantic import PineDantic  # type: ignore
 from sse_starlette.sse import EventSourceResponse  # type: ignore
 
-from ..services import ElevenLabsAPIClient
+from ..services import ElevenLabsAPIClient, PineCone  # type: ignore
 
 HDRS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) "
     "AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/50.0.2661.102 Safari/537.36"
 }
-
-
-class PineCone(PineDantic):
-    @property
-    def ai(self):
-        """
-        Returns an instance of the AsyncOpenAI class.
-        """
-        return AsyncOpenAI()
-
-    async def encode(self, *, text: str | list[str]) -> list[list[float]]:
-        response = await self.ai.embeddings.create(
-            input=text, model="text-embedding-ada-002"
-        )
-        return [r.embedding for r in response.data]
 
 
 class AIController(APIRouter):
@@ -221,7 +205,7 @@ class AIController(APIRouter):
             str: A response to the given text.
         """
         retrieved = await self.similarity_search(text=text, namespace=namespace)
-        context_window = "\n".join(r.json() for r in retrieved)
+        context_window = "\n".join(r.json() for r in retrieved or [])
         stream = await self.chat.create(
             messages=[
                 {"role": "user", "content": text},
@@ -230,7 +214,7 @@ class AIController(APIRouter):
                     "content": f"Relevant results from knowledge base:\n{context_window}",
                 },
             ],
-            model="gpt-4-turbo-0611-preview",
+            model="gpt-4-1106-preview",
             stream=True,
         )
         async for message in stream:
@@ -238,8 +222,7 @@ class AIController(APIRouter):
                 chunk = choice.delta.content
                 if chunk:
                     yield chunk
-                continue
-            yield json.dumps({"event": "done", "data": ""})
+        yield {"event": "done", "data": ""}  # type: ignore
 
 
 def setup_ai_routes():
@@ -290,11 +273,11 @@ def setup_ai_routes():
     async def _(text: str, urls: list[str]):
         return await ai.visualize_images(text=text, url=urls)
 
-    @ai.get("/search")
+    @ai.get("/search/{namespace}")
     async def _(text: str, namespace: str):
         return await ai.similarity_search(text=text, namespace=namespace)
 
-    @ai.get("/chat")
+    @ai.get("/chat/{namespace}")
     async def _(text: str, namespace: str):
         return EventSourceResponse(ai.chatgpt(text=text, namespace=namespace))
 

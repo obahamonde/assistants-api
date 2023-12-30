@@ -5,3 +5,4 @@ config.json
 static/*
 .DS_Store
 certificates.pem
+config.yaml

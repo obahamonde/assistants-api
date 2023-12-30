@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ repo }}-ingress
+  namespace: default
+spec:
+  rules:
+  - host: {{ domain }}
+    http:
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ repo }}-lb
+              port:
+                number: 80

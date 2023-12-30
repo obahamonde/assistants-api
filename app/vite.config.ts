@@ -7,6 +7,7 @@ import UnoCSS from "unocss/vite";
 import VueMacros from "unplugin-vue-macros/vite";
 import VueRouter from "unplugin-vue-router/vite";
 export default defineConfig({
+  base: "https://app.oscarbahamonde.com/static/",
   resolve: {
     alias: {
       "~/": `${path.resolve(__dirname, "src")}/`,
@@ -24,10 +25,6 @@ export default defineConfig({
   build: {
     outDir: "../static",
     emptyOutDir: true,
-    manifest: true,
-    rollupOptions: {
-      input: "src/main.ts",
-    },
   },
   plugins: [
     VueMacros({

@@ -15,12 +15,13 @@ const execRun = async ()=>{
 	const run = await startRun(state.currentThread.id, state.currentAssistant.id);
 	eventListener(state.currentThread.id,run.id, (event)=>{
 		state.messages.push(event);
-	});
+	});3
 	return run;
 }
 </script>
 <template>
 <div class="row center gap-4">
+
 <slot :exec="execRun" />
 </div>
 </template>

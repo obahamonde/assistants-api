@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useStore from "~/store";
-import type { ThreadRequest, ThreadResponse, GoogleUserInfo } from "~/types";
+import type { GoogleUserInfo } from "~/types";
 import type { ThreadMessageRequest, ThreadMessageResponse } from "~/types";
 const postThis = useRequest<ThreadMessageRequest, ThreadMessageResponse>();
 const props = defineProps<{
@@ -24,26 +24,26 @@ const postThreadMessage = async (message: ThreadMessageRequest) => {
   state.messages.push(data.value);
    await props.exec()
 };
-const post = useRequest<ThreadRequest, ThreadResponse>();
-const postThread = async (thread: ThreadRequest) => {
-  if (!state.user) return;
-  const { data } = await post(`/api/threads?user=${state.user.id}`, thread, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+const postChatCompletion = (str:string) => {
+  state.chatMessages.push({ content: str, role: "user" });
+  state.chatMessages.push({ content: "", role: "assistant" });
+  const eventSource = new EventSource(
+    `/api/ai/chat/${props.user.id}?text=${str}`,
+  );
+  eventSource.onmessage = (event) => {
+    state.chatMessages[state.chatMessages.length - 1].content += event.data;
+  };
+  eventSource.onerror = (event) => {
+    console.log(event);
+  };
+  eventSource.addEventListener("done", () => {
+    eventSource.close();
   });
-  if (!data.value) return;
-  state.threads.push(data.value);
- 
 };
-
 const text = ref("");
-const threadRequest = ref<ThreadRequest>({
-  messages: [{ content: text.value, role: "user" }],
-});
 </script>
 <template>
+  <InputVoice class="x3 cp scale" @send="postChatCompletion($event)" />
   <input
     type="text"
     v-model="text"
@@ -59,7 +59,7 @@ const threadRequest = ref<ThreadRequest>({
                 return file.id;
               }),
             })
-          : postThread(threadRequest);
+          : postChatCompletion(text);
         text = '';
       }
     "

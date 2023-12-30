@@ -1,0 +1,4 @@
+docker build -t {{ account }}/{{ repo }}:latest .
+docker tag {{ account }}/{{ repo }}:latest {{ account }}/{{ repo }}:{{ tag }}
+docker login
+docker push {{ account }}/{{ repo }}:{{ tag }}

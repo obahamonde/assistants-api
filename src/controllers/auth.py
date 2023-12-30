@@ -51,7 +51,7 @@ def get_flow():
             "https://www.googleapis.com/auth/userinfo.profile",
             "openid",
         ],
-        redirect_uri="http://localhost:3000",
+        redirect_uri="https://app.oscarbahamonde.com",
     )
     return flow
 

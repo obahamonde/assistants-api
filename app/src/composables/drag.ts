@@ -1,4 +1,4 @@
-export const useDrag = <T extends { name?: string; id?: string }>() => {
+export const useDrag = <T extends { id?: string; name?: string }>() => {
 	const isOverDropzone = ref(false);
 	const dropzone = ref<T[]>([]);
 	const draggableData = ref<T>();
