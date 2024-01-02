@@ -7,7 +7,7 @@ import UnoCSS from "unocss/vite";
 import VueMacros from "unplugin-vue-macros/vite";
 import VueRouter from "unplugin-vue-router/vite";
 export default defineConfig({
-  base: "https://app.oscarbahamonde.com/static/",
+  base: "/static/",
   resolve: {
     alias: {
       "~/": `${path.resolve(__dirname, "src")}/`,

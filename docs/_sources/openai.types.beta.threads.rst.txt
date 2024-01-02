@@ -1,0 +1,118 @@
+openai.types.beta.threads package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.types.beta.threads.messages
+   openai.types.beta.threads.runs
+
+Submodules
+----------
+
+openai.types.beta.threads.message\_content\_image\_file module
+--------------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.message_content_image_file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.message\_content\_text module
+-------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.message_content_text
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.message\_create\_params module
+--------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.message_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.message\_list\_params module
+------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.message_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.message\_update\_params module
+--------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.message_update_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.required\_action\_function\_tool\_call module
+-----------------------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.required_action_function_tool_call
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.run module
+------------------------------------
+
+.. automodule:: openai.types.beta.threads.run
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.run\_create\_params module
+----------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.run_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.run\_list\_params module
+--------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.run_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.run\_submit\_tool\_outputs\_params module
+-------------------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.run_submit_tool_outputs_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.run\_update\_params module
+----------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.run_update_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.thread\_message module
+------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.thread_message
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.beta.threads
+   :members:
+   :undoc-members:
+   :show-inheritance:

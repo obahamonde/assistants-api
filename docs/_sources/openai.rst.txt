@@ -1,0 +1,39 @@
+openai package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.cli
+   openai.resources
+   openai.types
+
+Submodules
+----------
+
+openai.pagination module
+------------------------
+
+.. automodule:: openai.pagination
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.version module
+---------------------
+
+.. automodule:: openai.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai
+   :members:
+   :undoc-members:
+   :show-inheritance:

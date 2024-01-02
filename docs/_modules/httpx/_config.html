@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>httpx._config &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">httpx._config</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for httpx._config</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">certifi</span>
+
+<span class="kn">from</span> <span class="nn">._compat</span> <span class="kn">import</span> <span class="n">set_minimum_tls_version_1_2</span>
+<span class="kn">from</span> <span class="nn">._models</span> <span class="kn">import</span> <span class="n">Headers</span>
+<span class="kn">from</span> <span class="nn">._types</span> <span class="kn">import</span> <span class="n">CertTypes</span><span class="p">,</span> <span class="n">HeaderTypes</span><span class="p">,</span> <span class="n">TimeoutTypes</span><span class="p">,</span> <span class="n">URLTypes</span><span class="p">,</span> <span class="n">VerifyTypes</span>
+<span class="kn">from</span> <span class="nn">._urls</span> <span class="kn">import</span> <span class="n">URL</span>
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">get_ca_bundle_from_env</span>
+
+<span class="n">DEFAULT_CIPHERS</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;ECDHE+AESGCM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ECDHE+CHACHA20&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DHE+AESGCM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DHE+CHACHA20&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ECDH+AESGCM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DH+AESGCM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ECDH+AES&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DH+AES&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RSA+AESGCM&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RSA+AES&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;!aNULL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;!eNULL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;!MD5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;!DSS&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;httpx&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">UnsetType</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># pragma: no cover</span>
+
+
+<span class="n">UNSET</span> <span class="o">=</span> <span class="n">UnsetType</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">create_ssl_context</span><span class="p">(</span>
+    <span class="n">cert</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">CertTypes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">verify</span><span class="p">:</span> <span class="n">VerifyTypes</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">trust_env</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">http2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">SSLConfig</span><span class="p">(</span>
+        <span class="n">cert</span><span class="o">=</span><span class="n">cert</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">verify</span><span class="p">,</span> <span class="n">trust_env</span><span class="o">=</span><span class="n">trust_env</span><span class="p">,</span> <span class="n">http2</span><span class="o">=</span><span class="n">http2</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ssl_context</span>
+
+
+<span class="k">class</span> <span class="nc">SSLConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SSL Configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">DEFAULT_CA_BUNDLE_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">certifi</span><span class="o">.</span><span class="n">where</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">cert</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">CertTypes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">verify</span><span class="p">:</span> <span class="n">VerifyTypes</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">trust_env</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">http2</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cert</span> <span class="o">=</span> <span class="n">cert</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">verify</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span> <span class="o">=</span> <span class="n">trust_env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http2</span> <span class="o">=</span> <span class="n">http2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_ssl_context</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">load_ssl_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;load_ssl_context verify=</span><span class="si">%r</span><span class="s2"> cert=</span><span class="si">%r</span><span class="s2"> trust_env=</span><span class="si">%r</span><span class="s2"> http2=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">http2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_ssl_context_verify</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_ssl_context_no_verify</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">load_ssl_context_no_verify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an SSL context for unverified connections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_default_ssl_context</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">check_hostname</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_client_certs</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">context</span>
+
+    <span class="k">def</span> <span class="nf">load_ssl_context_verify</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an SSL context for verified connections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">ca_bundle</span> <span class="o">=</span> <span class="n">get_ca_bundle_from_env</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ca_bundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">ca_bundle</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">,</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">):</span>
+            <span class="c1"># Allow passing in our own SSLContext object that&#39;s pre-configured.</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_client_certs</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">context</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="n">ca_bundle_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CA_BUNDLE_PATH</span>
+        <span class="k">elif</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">ca_bundle_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span>
+                <span class="s2">&quot;Could not find a suitable TLS CA certificate bundle, &quot;</span>
+                <span class="s2">&quot;invalid path: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_default_ssl_context</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_REQUIRED</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">check_hostname</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Signal to server support for PHA in TLS 1.3. Raises an</span>
+        <span class="c1"># AttributeError if only read-only access is implemented.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">post_handshake_auth</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Disable using &#39;commonName&#39; for SSLContext.check_hostname</span>
+        <span class="c1"># when the &#39;subjectAltName&#39; extension isn&#39;t available.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">hostname_checks_common_name</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="n">ca_bundle_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">cafile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ca_bundle_path</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;load_verify_locations cafile=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cafile</span><span class="p">)</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">load_verify_locations</span><span class="p">(</span><span class="n">cafile</span><span class="o">=</span><span class="n">cafile</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ca_bundle_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="n">capath</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ca_bundle_path</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;load_verify_locations capath=</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">capath</span><span class="p">)</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">load_verify_locations</span><span class="p">(</span><span class="n">capath</span><span class="o">=</span><span class="n">capath</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_client_certs</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">context</span>
+
+    <span class="k">def</span> <span class="nf">_create_default_ssl_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the default SSLContext object that&#39;s used for both verified</span>
+<span class="sd">        and unverified connections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">(</span><span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_TLS_CLIENT</span><span class="p">)</span>
+        <span class="n">set_minimum_tls_version_1_2</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">options</span> <span class="o">|=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">OP_NO_COMPRESSION</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">set_ciphers</span><span class="p">(</span><span class="n">DEFAULT_CIPHERS</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ssl</span><span class="o">.</span><span class="n">HAS_ALPN</span><span class="p">:</span>
+            <span class="n">alpn_idents</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;http/1.1&quot;</span><span class="p">,</span> <span class="s2">&quot;h2&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">http2</span> <span class="k">else</span> <span class="p">[</span><span class="s2">&quot;http/1.1&quot;</span><span class="p">]</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">set_alpn_protocols</span><span class="p">(</span><span class="n">alpn_idents</span><span class="p">)</span>
+
+        <span class="n">keylogfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SSLKEYLOGFILE&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">keylogfile</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">trust_env</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">keylog_filename</span> <span class="o">=</span> <span class="n">keylogfile</span>
+
+        <span class="k">return</span> <span class="n">context</span>
+
+    <span class="k">def</span> <span class="nf">_load_client_certs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ssl_context</span><span class="p">:</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads client certificates into our SSLContext object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cert</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">ssl_context</span><span class="o">.</span><span class="n">load_cert_chain</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">ssl_context</span><span class="o">.</span><span class="n">load_cert_chain</span><span class="p">(</span><span class="n">certfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">keyfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">ssl_context</span><span class="o">.</span><span class="n">load_cert_chain</span><span class="p">(</span>
+                    <span class="n">certfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">keyfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+                <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Timeout</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Timeout configuration.</span>
+
+<span class="sd">    **Usage**:</span>
+
+<span class="sd">    Timeout(None)               # No timeouts.</span>
+<span class="sd">    Timeout(5.0)                # 5s timeout on all operations.</span>
+<span class="sd">    Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.</span>
+<span class="sd">    Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.</span>
+<span class="sd">    Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.</span>
+<span class="sd">                                # 5s timeout elsewhere.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="n">TimeoutTypes</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">connect</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span><span class="p">,</span>
+        <span class="n">read</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span><span class="p">,</span>
+        <span class="n">write</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span><span class="p">,</span>
+        <span class="n">pool</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">):</span>
+            <span class="c1"># Passed as a single explicit Timeout.</span>
+            <span class="k">assert</span> <span class="n">connect</span> <span class="ow">is</span> <span class="n">UNSET</span>
+            <span class="k">assert</span> <span class="n">read</span> <span class="ow">is</span> <span class="n">UNSET</span>
+            <span class="k">assert</span> <span class="n">write</span> <span class="ow">is</span> <span class="n">UNSET</span>
+            <span class="k">assert</span> <span class="n">pool</span> <span class="ow">is</span> <span class="n">UNSET</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">.</span><span class="n">connect</span>  <span class="c1"># type: typing.Optional[float]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">.</span><span class="n">read</span>  <span class="c1"># type: typing.Optional[float]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">.</span><span class="n">write</span>  <span class="c1"># type: typing.Optional[float]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">timeout</span><span class="o">.</span><span class="n">pool</span>  <span class="c1"># type: typing.Optional[float]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="c1"># Passed as a tuple.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span> <span class="o">=</span> <span class="n">timeout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">timeout</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">timeout</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">timeout</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">connect</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">write</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span> <span class="o">=</span> <span class="n">connect</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">read</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">write</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">pool</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;httpx.Timeout must either include a default, or set all &quot;</span>
+                    <span class="s2">&quot;four parameters explicitly.&quot;</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span> <span class="o">=</span> <span class="n">timeout</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">connect</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span> <span class="k">else</span> <span class="n">connect</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">timeout</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span> <span class="k">else</span> <span class="n">read</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">timeout</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">write</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span> <span class="k">else</span> <span class="n">write</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">timeout</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pool</span><span class="p">,</span> <span class="n">UnsetType</span><span class="p">)</span> <span class="k">else</span> <span class="n">pool</span>
+
+<div class="viewcode-block" id="Timeout.as_dict">
+<a class="viewcode-back" href="../../openai.html#openai.Timeout.as_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;connect&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">,</span>
+            <span class="s2">&quot;read&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">,</span>
+            <span class="s2">&quot;write&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">,</span>
+            <span class="s2">&quot;pool&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">connect</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">read</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">write</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">write</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">pool</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">})</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">(timeout=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">(connect=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;read=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="si">}</span><span class="s2">, write=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="si">}</span><span class="s2">, pool=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Limits</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configuration for limits to various client behaviors.</span>
+
+<span class="sd">    **Parameters:**</span>
+
+<span class="sd">    * **max_connections** - The maximum number of concurrent connections that may be</span>
+<span class="sd">            established.</span>
+<span class="sd">    * **max_keepalive_connections** - Allow the connection pool to maintain</span>
+<span class="sd">            keep-alive connections below this point. Should be less than or equal</span>
+<span class="sd">            to `max_connections`.</span>
+<span class="sd">    * **keepalive_expiry** - Time limit on idle keep-alive connections in seconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">max_connections</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_keepalive_connections</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">keepalive_expiry</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_connections</span> <span class="o">=</span> <span class="n">max_connections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_keepalive_connections</span> <span class="o">=</span> <span class="n">max_keepalive_connections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keepalive_expiry</span> <span class="o">=</span> <span class="n">keepalive_expiry</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_connections</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">max_connections</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_keepalive_connections</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">max_keepalive_connections</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">keepalive_expiry</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">keepalive_expiry</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">(max_connections=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_connections</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;max_keepalive_connections=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_keepalive_connections</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;keepalive_expiry=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keepalive_expiry</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Proxy</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">:</span> <span class="n">URLTypes</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">ssl_context</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">ssl</span><span class="o">.</span><span class="n">SSLContext</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">auth</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">HeaderTypes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">URL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">Headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">,</span> <span class="s2">&quot;socks5&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown scheme for proxy URL </span><span class="si">{</span><span class="n">url</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">username</span> <span class="ow">or</span> <span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="p">:</span>
+            <span class="c1"># Remove any auth credentials from the URL.</span>
+            <span class="n">auth</span> <span class="o">=</span> <span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">copy_with</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">auth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">raw_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]]:</span>
+        <span class="c1"># The proxy authentication as raw bytes.</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># The authentication is represented with the password component masked.</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auth</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;********&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="c1"># Build a nice concise representation.</span>
+        <span class="n">url_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span>
+        <span class="n">auth_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;, auth=</span><span class="si">{</span><span class="n">auth</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">auth</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">headers_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;, headers=</span><span class="si">{</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Proxy(</span><span class="si">{</span><span class="n">url_str</span><span class="si">}{</span><span class="n">auth_str</span><span class="si">}{</span><span class="n">headers_str</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+
+<span class="n">DEFAULT_TIMEOUT_CONFIG</span> <span class="o">=</span> <span class="n">Timeout</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">DEFAULT_LIMITS</span> <span class="o">=</span> <span class="n">Limits</span><span class="p">(</span><span class="n">max_connections</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">max_keepalive_connections</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">DEFAULT_MAX_REDIRECTS</span> <span class="o">=</span> <span class="mi">20</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

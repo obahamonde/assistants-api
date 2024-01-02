@@ -1,0 +1,7 @@
+openai
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   openai

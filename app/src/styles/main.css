@@ -14,7 +14,6 @@ html.dark {
   background: #121212;
 }
 
-
 .image-container {
   position: relative;
 }
@@ -35,7 +34,9 @@ html.dark {
   color: white;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition:
+    visibility 0s,
+    opacity 0.5s linear;
   overflow: auto;
 }
 
@@ -62,7 +63,6 @@ html.dark {
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
-    
 }
 
 @keyframes anime {

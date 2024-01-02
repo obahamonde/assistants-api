@@ -22,9 +22,9 @@ const postThreadMessage = async (message: ThreadMessageRequest) => {
   );
   if (!data.value) return;
   state.messages.push(data.value);
-   await props.exec()
+  await props.exec();
 };
-const postChatCompletion = (str:string) => {
+const postChatCompletion = (str: string) => {
   state.chatMessages.push({ content: str, role: "user" });
   state.chatMessages.push({ content: "", role: "assistant" });
   const eventSource = new EventSource(
@@ -36,7 +36,7 @@ const postChatCompletion = (str:string) => {
   eventSource.onerror = (event) => {
     console.log(event);
   };
-  eventSource.addEventListener("done", () => {
+  eventSource.addEventListener("done", async (e: MessageEvent) => {
     eventSource.close();
   });
 };

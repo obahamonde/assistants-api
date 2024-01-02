@@ -1,0 +1,69 @@
+openai.types.beta.threads.runs package
+======================================
+
+Submodules
+----------
+
+openai.types.beta.threads.runs.code\_tool\_call module
+------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.code_tool_call
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.runs.function\_tool\_call module
+----------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.function_tool_call
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.runs.message\_creation\_step\_details module
+----------------------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.message_creation_step_details
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.runs.retrieval\_tool\_call module
+-----------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.retrieval_tool_call
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.runs.run\_step module
+-----------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.run_step
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.runs.step\_list\_params module
+--------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.step_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.runs.tool\_calls\_step\_details module
+----------------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.runs.tool_calls_step_details
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.beta.threads.runs
+   :members:
+   :undoc-members:
+   :show-inheritance:

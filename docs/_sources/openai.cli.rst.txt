@@ -1,0 +1,10 @@
+openai.cli package
+==================
+
+Module contents
+---------------
+
+.. automodule:: openai.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.resources.audio.speech &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">openai.resources.audio.speech</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for openai.resources.audio.speech</h1><div class="highlight"><pre>
+<span></span><span class="c1"># File generated from our OpenAPI spec by Stainless.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="kn">from</span> <span class="nn">..._types</span> <span class="kn">import</span> <span class="n">NOT_GIVEN</span><span class="p">,</span> <span class="n">Body</span><span class="p">,</span> <span class="n">Query</span><span class="p">,</span> <span class="n">Headers</span><span class="p">,</span> <span class="n">NotGiven</span>
+<span class="kn">from</span> <span class="nn">..._utils</span> <span class="kn">import</span> <span class="n">maybe_transform</span>
+<span class="kn">from</span> <span class="nn">..._resource</span> <span class="kn">import</span> <span class="n">SyncAPIResource</span><span class="p">,</span> <span class="n">AsyncAPIResource</span>
+<span class="kn">from</span> <span class="nn">..._response</span> <span class="kn">import</span> <span class="n">to_raw_response_wrapper</span><span class="p">,</span> <span class="n">async_to_raw_response_wrapper</span>
+<span class="kn">from</span> <span class="nn">...types.audio</span> <span class="kn">import</span> <span class="n">speech_create_params</span>
+<span class="kn">from</span> <span class="nn">..._base_client</span> <span class="kn">import</span> <span class="n">HttpxBinaryResponseContent</span><span class="p">,</span> <span class="n">make_request_options</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">..._client</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Speech&quot;</span><span class="p">,</span> <span class="s2">&quot;AsyncSpeech&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Speech">
+<a class="viewcode-back" href="../../../../openai.resources.audio.html#openai.resources.audio.speech.Speech">[docs]</a>
+<span class="k">class</span> <span class="nc">Speech</span><span class="p">(</span><span class="n">SyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">SpeechWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">OpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">SpeechWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Speech.create">
+<a class="viewcode-back" href="../../../../openai.resources.audio.html#openai.resources.audio.speech.Speech.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;tts-1&quot;</span><span class="p">,</span> <span class="s2">&quot;tts-1-hd&quot;</span><span class="p">]],</span>
+        <span class="n">voice</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;alloy&quot;</span><span class="p">,</span> <span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;fable&quot;</span><span class="p">,</span> <span class="s2">&quot;onyx&quot;</span><span class="p">,</span> <span class="s2">&quot;nova&quot;</span><span class="p">,</span> <span class="s2">&quot;shimmer&quot;</span><span class="p">],</span>
+        <span class="n">response_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;opus&quot;</span><span class="p">,</span> <span class="s2">&quot;aac&quot;</span><span class="p">,</span> <span class="s2">&quot;flac&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpxBinaryResponseContent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates audio from the input text.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          input: The text to generate audio for. The maximum length is 4096 characters.</span>
+
+<span class="sd">          model:</span>
+<span class="sd">              One of the available [TTS models](https://platform.openai.com/docs/models/tts):</span>
+<span class="sd">              `tts-1` or `tts-1-hd`</span>
+
+<span class="sd">          voice: The voice to use when generating the audio. Supported voices are `alloy`,</span>
+<span class="sd">              `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of the voices are</span>
+<span class="sd">              available in the</span>
+<span class="sd">              [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech/voice-options).</span>
+
+<span class="sd">          response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, and `flac`.</span>
+
+<span class="sd">          speed: The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is</span>
+<span class="sd">              the default.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/audio/speech&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="nb">input</span><span class="p">,</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                    <span class="s2">&quot;voice&quot;</span><span class="p">:</span> <span class="n">voice</span><span class="p">,</span>
+                    <span class="s2">&quot;response_format&quot;</span><span class="p">:</span> <span class="n">response_format</span><span class="p">,</span>
+                    <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="n">speed</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">speech_create_params</span><span class="o">.</span><span class="n">SpeechCreateParams</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">HttpxBinaryResponseContent</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AsyncSpeech">
+<a class="viewcode-back" href="../../../../openai.resources.audio.html#openai.resources.audio.speech.AsyncSpeech">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncSpeech</span><span class="p">(</span><span class="n">AsyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">AsyncSpeechWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncOpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">AsyncSpeechWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncSpeech.create">
+<a class="viewcode-back" href="../../../../openai.resources.audio.html#openai.resources.audio.speech.AsyncSpeech.create">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;tts-1&quot;</span><span class="p">,</span> <span class="s2">&quot;tts-1-hd&quot;</span><span class="p">]],</span>
+        <span class="n">voice</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;alloy&quot;</span><span class="p">,</span> <span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;fable&quot;</span><span class="p">,</span> <span class="s2">&quot;onyx&quot;</span><span class="p">,</span> <span class="s2">&quot;nova&quot;</span><span class="p">,</span> <span class="s2">&quot;shimmer&quot;</span><span class="p">],</span>
+        <span class="n">response_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;opus&quot;</span><span class="p">,</span> <span class="s2">&quot;aac&quot;</span><span class="p">,</span> <span class="s2">&quot;flac&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpxBinaryResponseContent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates audio from the input text.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          input: The text to generate audio for. The maximum length is 4096 characters.</span>
+
+<span class="sd">          model:</span>
+<span class="sd">              One of the available [TTS models](https://platform.openai.com/docs/models/tts):</span>
+<span class="sd">              `tts-1` or `tts-1-hd`</span>
+
+<span class="sd">          voice: The voice to use when generating the audio. Supported voices are `alloy`,</span>
+<span class="sd">              `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of the voices are</span>
+<span class="sd">              available in the</span>
+<span class="sd">              [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech/voice-options).</span>
+
+<span class="sd">          response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, and `flac`.</span>
+
+<span class="sd">          speed: The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is</span>
+<span class="sd">              the default.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/audio/speech&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="nb">input</span><span class="p">,</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                    <span class="s2">&quot;voice&quot;</span><span class="p">:</span> <span class="n">voice</span><span class="p">,</span>
+                    <span class="s2">&quot;response_format&quot;</span><span class="p">:</span> <span class="n">response_format</span><span class="p">,</span>
+                    <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="n">speed</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">speech_create_params</span><span class="o">.</span><span class="n">SpeechCreateParams</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">HttpxBinaryResponseContent</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SpeechWithRawResponse">
+<a class="viewcode-back" href="../../../../openai.resources.audio.html#openai.resources.audio.speech.SpeechWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">SpeechWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speech</span><span class="p">:</span> <span class="n">Speech</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">speech</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AsyncSpeechWithRawResponse">
+<a class="viewcode-back" href="../../../../openai.resources.audio.html#openai.resources.audio.speech.AsyncSpeechWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncSpeechWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">speech</span><span class="p">:</span> <span class="n">AsyncSpeech</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">speech</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

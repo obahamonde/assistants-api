@@ -100,6 +100,12 @@ export default defineConfig({
       "card-title",
       "mb-3 text-2xl text-title text-black dark:text-white font-semibold",
     ],
+    [
+      'shadow-btn', 'bg-accent sh shadow-cyan-300 hover:shadow-accent hover:bg-cyan-300 hover:text-accent scale cp'
+    ],
+    [
+      'btn-pill', 'bg-accent text-xs rounded-3xl p-2'
+    ]
   ],
   presets: [
     presetUno(),

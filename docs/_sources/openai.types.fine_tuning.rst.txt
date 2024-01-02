@@ -1,0 +1,53 @@
+openai.types.fine\_tuning package
+=================================
+
+Submodules
+----------
+
+openai.types.fine\_tuning.fine\_tuning\_job module
+--------------------------------------------------
+
+.. automodule:: openai.types.fine_tuning.fine_tuning_job
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tuning.fine\_tuning\_job\_event module
+---------------------------------------------------------
+
+.. automodule:: openai.types.fine_tuning.fine_tuning_job_event
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tuning.job\_create\_params module
+----------------------------------------------------
+
+.. automodule:: openai.types.fine_tuning.job_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tuning.job\_list\_events\_params module
+----------------------------------------------------------
+
+.. automodule:: openai.types.fine_tuning.job_list_events_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tuning.job\_list\_params module
+--------------------------------------------------
+
+.. automodule:: openai.types.fine_tuning.job_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.fine_tuning
+   :members:
+   :undoc-members:
+   :show-inheritance:

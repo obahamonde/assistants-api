@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.types.beta.threads.runs package &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">openai.types.beta.threads.runs package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.code_tool_call">openai.types.beta.threads.runs.code_tool_call module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter"><code class="docutils literal notranslate"><span class="pre">CodeInterpreter</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter.input"><code class="docutils literal notranslate"><span class="pre">CodeInterpreter.input</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter.outputs"><code class="docutils literal notranslate"><span class="pre">CodeInterpreter.outputs</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputImage</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage.image"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputImage.image</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage.type"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputImage.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputImageImage</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage.file_id"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputImageImage.file_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputLogs</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs.logs"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputLogs.logs</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs.type"><code class="docutils literal notranslate"><span class="pre">CodeInterpreterOutputLogs.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall"><code class="docutils literal notranslate"><span class="pre">CodeToolCall</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall.code_interpreter"><code class="docutils literal notranslate"><span class="pre">CodeToolCall.code_interpreter</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall.id"><code class="docutils literal notranslate"><span class="pre">CodeToolCall.id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall.type"><code class="docutils literal notranslate"><span class="pre">CodeToolCall.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.function_tool_call">openai.types.beta.threads.runs.function_tool_call module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.Function"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.Function.arguments"><code class="docutils literal notranslate"><span class="pre">Function.arguments</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.Function.name"><code class="docutils literal notranslate"><span class="pre">Function.name</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.Function.output"><code class="docutils literal notranslate"><span class="pre">Function.output</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall"><code class="docutils literal notranslate"><span class="pre">FunctionToolCall</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.function"><code class="docutils literal notranslate"><span class="pre">FunctionToolCall.function</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.id"><code class="docutils literal notranslate"><span class="pre">FunctionToolCall.id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.type"><code class="docutils literal notranslate"><span class="pre">FunctionToolCall.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.message_creation_step_details">openai.types.beta.threads.runs.message_creation_step_details module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreation"><code class="docutils literal notranslate"><span class="pre">MessageCreation</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreation.message_id"><code class="docutils literal notranslate"><span class="pre">MessageCreation.message_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails"><code class="docutils literal notranslate"><span class="pre">MessageCreationStepDetails</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails.message_creation"><code class="docutils literal notranslate"><span class="pre">MessageCreationStepDetails.message_creation</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails.type"><code class="docutils literal notranslate"><span class="pre">MessageCreationStepDetails.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.retrieval_tool_call">openai.types.beta.threads.runs.retrieval_tool_call module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall"><code class="docutils literal notranslate"><span class="pre">RetrievalToolCall</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.id"><code class="docutils literal notranslate"><span class="pre">RetrievalToolCall.id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.retrieval"><code class="docutils literal notranslate"><span class="pre">RetrievalToolCall.retrieval</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.type"><code class="docutils literal notranslate"><span class="pre">RetrievalToolCall.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.run_step">openai.types.beta.threads.runs.run_step module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.LastError"><code class="docutils literal notranslate"><span class="pre">LastError</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.LastError.code"><code class="docutils literal notranslate"><span class="pre">LastError.code</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.LastError.message"><code class="docutils literal notranslate"><span class="pre">LastError.message</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep"><code class="docutils literal notranslate"><span class="pre">RunStep</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.assistant_id"><code class="docutils literal notranslate"><span class="pre">RunStep.assistant_id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.cancelled_at"><code class="docutils literal notranslate"><span class="pre">RunStep.cancelled_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.completed_at"><code class="docutils literal notranslate"><span class="pre">RunStep.completed_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.created_at"><code class="docutils literal notranslate"><span class="pre">RunStep.created_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.expired_at"><code class="docutils literal notranslate"><span class="pre">RunStep.expired_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.failed_at"><code class="docutils literal notranslate"><span class="pre">RunStep.failed_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.id"><code class="docutils literal notranslate"><span class="pre">RunStep.id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.last_error"><code class="docutils literal notranslate"><span class="pre">RunStep.last_error</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.metadata"><code class="docutils literal notranslate"><span class="pre">RunStep.metadata</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.object"><code class="docutils literal notranslate"><span class="pre">RunStep.object</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.run_id"><code class="docutils literal notranslate"><span class="pre">RunStep.run_id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.status"><code class="docutils literal notranslate"><span class="pre">RunStep.status</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.step_details"><code class="docutils literal notranslate"><span class="pre">RunStep.step_details</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.thread_id"><code class="docutils literal notranslate"><span class="pre">RunStep.thread_id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.RunStep.type"><code class="docutils literal notranslate"><span class="pre">RunStep.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.step_list_params">openai.types.beta.threads.runs.step_list_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.step_list_params.StepListParams"><code class="docutils literal notranslate"><span class="pre">StepListParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.after"><code class="docutils literal notranslate"><span class="pre">StepListParams.after</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.before"><code class="docutils literal notranslate"><span class="pre">StepListParams.before</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.limit"><code class="docutils literal notranslate"><span class="pre">StepListParams.limit</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.order"><code class="docutils literal notranslate"><span class="pre">StepListParams.order</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.thread_id"><code class="docutils literal notranslate"><span class="pre">StepListParams.thread_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs.tool_calls_step_details">openai.types.beta.threads.runs.tool_calls_step_details module</a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails"><code class="docutils literal notranslate"><span class="pre">ToolCallsStepDetails</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails.tool_calls"><code class="docutils literal notranslate"><span class="pre">ToolCallsStepDetails.tool_calls</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails.type"><code class="docutils literal notranslate"><span class="pre">ToolCallsStepDetails.type</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.beta.threads.runs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">openai.types.beta.threads.runs package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/openai.types.beta.threads.runs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="openai-types-beta-threads-runs-package">
+<h1>openai.types.beta.threads.runs package<a class="headerlink" href="#openai-types-beta-threads-runs-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-openai.types.beta.threads.runs.code_tool_call">
+<span id="openai-types-beta-threads-runs-code-tool-call-module"></span><h2>openai.types.beta.threads.runs.code_tool_call module<a class="headerlink" href="#module-openai.types.beta.threads.runs.code_tool_call" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.code_tool_call.</span></span><span class="sig-name descname"><span class="pre">CodeInterpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs"><span class="pre">CodeInterpreterOutputLogs</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage"><span class="pre">CodeInterpreterOutputImage</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/code_tool_call.html#CodeInterpreter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreter.input">
+<span class="sig-name descname"><span class="pre">input</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter.input" title="Link to this definition"></a></dt>
+<dd><p>The input to the Code Interpreter tool call.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreter.outputs">
+<span class="sig-name descname"><span class="pre">outputs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs"><span class="pre">CodeInterpreterOutputLogs</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage"><span class="pre">CodeInterpreterOutputImage</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter.outputs" title="Link to this definition"></a></dt>
+<dd><p>The outputs from the Code Interpreter tool call.</p>
+<p>Code Interpreter can output one or more items, including text (<cite>logs</cite>) or images
+(<cite>image</cite>). Each of these are represented by a different object type.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.code_tool_call.</span></span><span class="sig-name descname"><span class="pre">CodeInterpreterOutputImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage"><span class="pre">CodeInterpreterOutputImageImage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'image'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/code_tool_call.html#CodeInterpreterOutputImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage.image">
+<span class="sig-name descname"><span class="pre">image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage"><span class="pre">CodeInterpreterOutputImageImage</span></a></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage.image" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'image'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImage.type" title="Link to this definition"></a></dt>
+<dd><p>Always <cite>image</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.code_tool_call.</span></span><span class="sig-name descname"><span class="pre">CodeInterpreterOutputImageImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/code_tool_call.html#CodeInterpreterOutputImageImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage.file_id">
+<span class="sig-name descname"><span class="pre">file_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputImageImage.file_id" title="Link to this definition"></a></dt>
+<dd><p>//platform.openai.com/docs/api-reference/files) ID of the
+image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The [file](https</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.code_tool_call.</span></span><span class="sig-name descname"><span class="pre">CodeInterpreterOutputLogs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'logs'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/code_tool_call.html#CodeInterpreterOutputLogs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs.logs">
+<span class="sig-name descname"><span class="pre">logs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs.logs" title="Link to this definition"></a></dt>
+<dd><p>The text output from the Code Interpreter tool call.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'logs'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreterOutputLogs.type" title="Link to this definition"></a></dt>
+<dd><p>Always <cite>logs</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeToolCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.code_tool_call.</span></span><span class="sig-name descname"><span class="pre">CodeToolCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_interpreter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreter"><span class="pre">CodeInterpreter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'code_interpreter'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/code_tool_call.html#CodeToolCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeToolCall.code_interpreter">
+<span class="sig-name descname"><span class="pre">code_interpreter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeInterpreter" title="openai.types.beta.threads.runs.code_tool_call.CodeInterpreter"><span class="pre">CodeInterpreter</span></a></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall.code_interpreter" title="Link to this definition"></a></dt>
+<dd><p>The Code Interpreter tool call definition.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeToolCall.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall.id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the tool call.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.code_tool_call.CodeToolCall.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'code_interpreter'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall.type" title="Link to this definition"></a></dt>
+<dd><p>The type of tool call.</p>
+<p>This is always going to be <cite>code_interpreter</cite> for this type of tool call.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs.function_tool_call">
+<span id="openai-types-beta-threads-runs-function-tool-call-module"></span><h2>openai.types.beta.threads.runs.function_tool_call module<a class="headerlink" href="#module-openai.types.beta.threads.runs.function_tool_call" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.Function">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.function_tool_call.</span></span><span class="sig-name descname"><span class="pre">Function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/function_tool_call.html#Function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.Function" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.Function.arguments">
+<span class="sig-name descname"><span class="pre">arguments</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.Function.arguments" title="Link to this definition"></a></dt>
+<dd><p>The arguments passed to the function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.Function.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.Function.name" title="Link to this definition"></a></dt>
+<dd><p>The name of the function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.Function.output">
+<span class="sig-name descname"><span class="pre">output</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.Function.output" title="Link to this definition"></a></dt>
+<dd><p>The output of the function.</p>
+<p>This will be <cite>null</cite> if the outputs have not been
+[submitted](<a class="reference external" href="https://platform.openai.com/docs/api-reference/runs/submitToolOutputs">https://platform.openai.com/docs/api-reference/runs/submitToolOutputs</a>)
+yet.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.FunctionToolCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.function_tool_call.</span></span><span class="sig-name descname"><span class="pre">FunctionToolCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.Function" title="openai.types.beta.threads.runs.function_tool_call.Function"><span class="pre">Function</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'function'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/function_tool_call.html#FunctionToolCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.function">
+<span class="sig-name descname"><span class="pre">function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.Function" title="openai.types.beta.threads.runs.function_tool_call.Function"><span class="pre">Function</span></a></em><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.function" title="Link to this definition"></a></dt>
+<dd><p>The definition of the function that was called.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the tool call object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'function'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall.type" title="Link to this definition"></a></dt>
+<dd><p>The type of tool call.</p>
+<p>This is always going to be <cite>function</cite> for this type of tool call.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs.message_creation_step_details">
+<span id="openai-types-beta-threads-runs-message-creation-step-details-module"></span><h2>openai.types.beta.threads.runs.message_creation_step_details module<a class="headerlink" href="#module-openai.types.beta.threads.runs.message_creation_step_details" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.message_creation_step_details.MessageCreation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.message_creation_step_details.</span></span><span class="sig-name descname"><span class="pre">MessageCreation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/message_creation_step_details.html#MessageCreation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.message_creation_step_details.MessageCreation.message_id">
+<span class="sig-name descname"><span class="pre">message_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreation.message_id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the message that was created by this run step.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.message_creation_step_details.</span></span><span class="sig-name descname"><span class="pre">MessageCreationStepDetails</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_creation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreation" title="openai.types.beta.threads.runs.message_creation_step_details.MessageCreation"><span class="pre">MessageCreation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'message_creation'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/message_creation_step_details.html#MessageCreationStepDetails"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails.message_creation">
+<span class="sig-name descname"><span class="pre">message_creation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreation" title="openai.types.beta.threads.runs.message_creation_step_details.MessageCreation"><span class="pre">MessageCreation</span></a></em><a class="headerlink" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails.message_creation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'message_creation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails.type" title="Link to this definition"></a></dt>
+<dd><p>Always <cite>message_creation</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs.retrieval_tool_call">
+<span id="openai-types-beta-threads-runs-retrieval-tool-call-module"></span><h2>openai.types.beta.threads.runs.retrieval_tool_call module<a class="headerlink" href="#module-openai.types.beta.threads.runs.retrieval_tool_call" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.retrieval_tool_call.</span></span><span class="sig-name descname"><span class="pre">RetrievalToolCall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'retrieval'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/retrieval_tool_call.html#RetrievalToolCall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the tool call object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.retrieval">
+<span class="sig-name descname"><span class="pre">retrieval</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">object</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.retrieval" title="Link to this definition"></a></dt>
+<dd><p>For now, this is always going to be an empty object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'retrieval'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall.type" title="Link to this definition"></a></dt>
+<dd><p>The type of tool call.</p>
+<p>This is always going to be <cite>retrieval</cite> for this type of tool call.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs.run_step">
+<span id="openai-types-beta-threads-runs-run-step-module"></span><h2>openai.types.beta.threads.runs.run_step module<a class="headerlink" href="#module-openai.types.beta.threads.runs.run_step" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.LastError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.run_step.</span></span><span class="sig-name descname"><span class="pre">LastError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'server_error'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rate_limit_exceeded'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/run_step.html#LastError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.LastError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.LastError.code">
+<span class="sig-name descname"><span class="pre">code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'server_error'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'rate_limit_exceeded'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.LastError.code" title="Link to this definition"></a></dt>
+<dd><p>One of <cite>server_error</cite> or <cite>rate_limit_exceeded</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.LastError.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.LastError.message" title="Link to this definition"></a></dt>
+<dd><p>A human-readable description of the error.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.run_step.</span></span><span class="sig-name descname"><span class="pre">RunStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assistant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cancelled_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completed_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expired_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">failed_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.LastError" title="openai.types.beta.threads.runs.run_step.LastError"><span class="pre">LastError</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'thread.run.step'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'in_progress'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cancelled'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'failed'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'completed'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'expired'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails" title="openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails"><span class="pre">MessageCreationStepDetails</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails" title="openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails"><span class="pre">ToolCallsStepDetails</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">thread_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'message_creation'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'tool_calls'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/run_step.html#RunStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.assistant_id">
+<span class="sig-name descname"><span class="pre">assistant_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.assistant_id" title="Link to this definition"></a></dt>
+<dd><p>The ID of the
+[assistant](<a class="reference external" href="https://platform.openai.com/docs/api-reference/assistants">https://platform.openai.com/docs/api-reference/assistants</a>)
+associated with the run step.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.cancelled_at">
+<span class="sig-name descname"><span class="pre">cancelled_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.cancelled_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the run step was cancelled.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.completed_at">
+<span class="sig-name descname"><span class="pre">completed_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.completed_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the run step completed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.created_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the run step was created.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.expired_at">
+<span class="sig-name descname"><span class="pre">expired_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.expired_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the run step expired.</p>
+<p>A step is considered expired if the parent run is expired.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.failed_at">
+<span class="sig-name descname"><span class="pre">failed_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.failed_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the run step failed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.id" title="Link to this definition"></a></dt>
+<dd><p>The identifier of the run step, which can be referenced in API endpoints.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.last_error">
+<span class="sig-name descname"><span class="pre">last_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.run_step.LastError" title="openai.types.beta.threads.runs.run_step.LastError"><span class="pre">LastError</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.last_error" title="Link to this definition"></a></dt>
+<dd><p>The last error associated with this run step.</p>
+<p>Will be <cite>null</cite> if there are no errors.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">object</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.metadata" title="Link to this definition"></a></dt>
+<dd><p>Set of 16 key-value pairs that can be attached to an object.</p>
+<p>This can be useful for storing additional information about the object in a
+structured format. Keys can be a maximum of 64 characters long and values can be
+a maxium of 512 characters long.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.object">
+<span class="sig-name descname"><span class="pre">object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'thread.run.step'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.object" title="Link to this definition"></a></dt>
+<dd><p>The object type, which is always <cite>thread.run.step</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.run_id">
+<span class="sig-name descname"><span class="pre">run_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.run_id" title="Link to this definition"></a></dt>
+<dd><p>//platform.openai.com/docs/api-reference/runs) that
+this run step is a part of.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the [run](https</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'in_progress'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cancelled'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'failed'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'completed'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'expired'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.status" title="Link to this definition"></a></dt>
+<dd><p>The status of the run step, which can be either <cite>in_progress</cite>, <cite>cancelled</cite>,
+<cite>failed</cite>, <cite>completed</cite>, or <cite>expired</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.step_details">
+<span class="sig-name descname"><span class="pre">step_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails" title="openai.types.beta.threads.runs.message_creation_step_details.MessageCreationStepDetails"><span class="pre">MessageCreationStepDetails</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails" title="openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails"><span class="pre">ToolCallsStepDetails</span></a></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.step_details" title="Link to this definition"></a></dt>
+<dd><p>The details of the run step.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.thread_id">
+<span class="sig-name descname"><span class="pre">thread_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.thread_id" title="Link to this definition"></a></dt>
+<dd><p>//platform.openai.com/docs/api-reference/threads)
+that was run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the [thread](https</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.run_step.RunStep.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'message_creation'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'tool_calls'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.run_step.RunStep.type" title="Link to this definition"></a></dt>
+<dd><p>The type of run step, which can be either <cite>message_creation</cite> or <cite>tool_calls</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs.step_list_params">
+<span id="openai-types-beta-threads-runs-step-list-params-module"></span><h2>openai.types.beta.threads.runs.step_list_params module<a class="headerlink" href="#module-openai.types.beta.threads.runs.step_list_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.step_list_params.StepListParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.step_list_params.</span></span><span class="sig-name descname"><span class="pre">StepListParams</span></span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/step_list_params.html#StepListParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.step_list_params.StepListParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.step_list_params.StepListParams.after">
+<span class="sig-name descname"><span class="pre">after</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.after" title="Link to this definition"></a></dt>
+<dd><p>A cursor for use in pagination.</p>
+<p><cite>after</cite> is an object ID that defines your place in the list. For instance, if
+you make a list request and receive 100 objects, ending with obj_foo, your
+subsequent call can include after=obj_foo in order to fetch the next page of the
+list.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.step_list_params.StepListParams.before">
+<span class="sig-name descname"><span class="pre">before</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.before" title="Link to this definition"></a></dt>
+<dd><p>A cursor for use in pagination.</p>
+<p><cite>before</cite> is an object ID that defines your place in the list. For instance, if
+you make a list request and receive 100 objects, ending with obj_foo, your
+subsequent call can include before=obj_foo in order to fetch the previous page
+of the list.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.step_list_params.StepListParams.limit">
+<span class="sig-name descname"><span class="pre">limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.limit" title="Link to this definition"></a></dt>
+<dd><p>A limit on the number of objects to be returned.</p>
+<p>Limit can range between 1 and 100, and the default is 20.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.step_list_params.StepListParams.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asc'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'desc'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.order" title="Link to this definition"></a></dt>
+<dd><p>Sort order by the <cite>created_at</cite> timestamp of the objects.</p>
+<p><cite>asc</cite> for ascending order and <cite>desc</cite> for descending order.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.step_list_params.StepListParams.thread_id">
+<span class="sig-name descname"><span class="pre">thread_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.beta.threads.runs.step_list_params.StepListParams.thread_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs.tool_calls_step_details">
+<span id="openai-types-beta-threads-runs-tool-calls-step-details-module"></span><h2>openai.types.beta.threads.runs.tool_calls_step_details module<a class="headerlink" href="#module-openai.types.beta.threads.runs.tool_calls_step_details" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.beta.threads.runs.tool_calls_step_details.</span></span><span class="sig-name descname"><span class="pre">ToolCallsStepDetails</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool_calls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall" title="openai.types.beta.threads.runs.code_tool_call.CodeToolCall"><span class="pre">CodeToolCall</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall" title="openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall"><span class="pre">RetrievalToolCall</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall" title="openai.types.beta.threads.runs.function_tool_call.FunctionToolCall"><span class="pre">FunctionToolCall</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'tool_calls'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/beta/threads/runs/tool_calls_step_details.html#ToolCallsStepDetails"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails.tool_calls">
+<span class="sig-name descname"><span class="pre">tool_calls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#openai.types.beta.threads.runs.code_tool_call.CodeToolCall" title="openai.types.beta.threads.runs.code_tool_call.CodeToolCall"><span class="pre">CodeToolCall</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall" title="openai.types.beta.threads.runs.retrieval_tool_call.RetrievalToolCall"><span class="pre">RetrievalToolCall</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.beta.threads.runs.function_tool_call.FunctionToolCall" title="openai.types.beta.threads.runs.function_tool_call.FunctionToolCall"><span class="pre">FunctionToolCall</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails.tool_calls" title="Link to this definition"></a></dt>
+<dd><p>An array of tool calls the run step was involved in.</p>
+<p>These can be associated with one of three types of tools: <cite>code_interpreter</cite>,
+<cite>retrieval</cite>, or <cite>function</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'tool_calls'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.beta.threads.runs.tool_calls_step_details.ToolCallsStepDetails.type" title="Link to this definition"></a></dt>
+<dd><p>Always <cite>tool_calls</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.beta.threads.runs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-openai.types.beta.threads.runs" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

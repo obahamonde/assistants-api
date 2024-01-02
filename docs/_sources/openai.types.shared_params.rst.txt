@@ -1,0 +1,29 @@
+openai.types.shared\_params package
+===================================
+
+Submodules
+----------
+
+openai.types.shared\_params.function\_definition module
+-------------------------------------------------------
+
+.. automodule:: openai.types.shared_params.function_definition
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.shared\_params.function\_parameters module
+-------------------------------------------------------
+
+.. automodule:: openai.types.shared_params.function_parameters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.shared_params
+   :members:
+   :undoc-members:
+   :show-inheritance:

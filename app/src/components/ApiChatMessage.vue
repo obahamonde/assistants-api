@@ -33,11 +33,19 @@ watch(
 );
 </script>
 <template>
-  <section class="col start  overflow-y-auto">
-    <ul class="col start gap-4" v-if="state.currentAssistant &&  state.currentThread" >
-     <AppMessage v-for="message in state.messages" :message="message" :assistant="state.currentAssistant" :user="props.user" />
+  <section class="col start overflow-y-auto">
+    <ul
+      class="col start gap-4"
+      v-if="state.currentAssistant && state.currentThread"
+    >
+      <AppMessage
+        v-for="message in state.messages"
+        :message="message"
+        :assistant="state.currentAssistant"
+        :user="props.user"
+      />
     </ul>
-		 <AppChatMessage :messages="state.chatMessages" :user="props.user" />
+    <AppChatMessage :messages="state.chatMessages" :user="props.user" />
   </section>
 </template>
 <style scoped>
@@ -75,6 +83,4 @@ img.w-8.h-8.rounded-full.m-4 {
   width: 32px; /* Ancho de la imagen */
   height: 32px; /* Altura de la imagen */
 }
-
-
 </style>

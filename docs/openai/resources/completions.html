@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.resources.completions &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">openai.resources.completions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for openai.resources.completions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># File generated from our OpenAPI spec by Stainless.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">overload</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">Completion</span><span class="p">,</span> <span class="n">completion_create_params</span>
+<span class="kn">from</span> <span class="nn">.._types</span> <span class="kn">import</span> <span class="n">NOT_GIVEN</span><span class="p">,</span> <span class="n">Body</span><span class="p">,</span> <span class="n">Query</span><span class="p">,</span> <span class="n">Headers</span><span class="p">,</span> <span class="n">NotGiven</span>
+<span class="kn">from</span> <span class="nn">.._utils</span> <span class="kn">import</span> <span class="n">required_args</span><span class="p">,</span> <span class="n">maybe_transform</span>
+<span class="kn">from</span> <span class="nn">.._resource</span> <span class="kn">import</span> <span class="n">SyncAPIResource</span><span class="p">,</span> <span class="n">AsyncAPIResource</span>
+<span class="kn">from</span> <span class="nn">.._response</span> <span class="kn">import</span> <span class="n">to_raw_response_wrapper</span><span class="p">,</span> <span class="n">async_to_raw_response_wrapper</span>
+<span class="kn">from</span> <span class="nn">.._streaming</span> <span class="kn">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">AsyncStream</span>
+<span class="kn">from</span> <span class="nn">.._base_client</span> <span class="kn">import</span> <span class="n">make_request_options</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.._client</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Completions&quot;</span><span class="p">,</span> <span class="s2">&quot;AsyncCompletions&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Completions">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.completions.Completions">[docs]</a>
+<span class="k">class</span> <span class="nc">Completions</span><span class="p">(</span><span class="n">SyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">CompletionsWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">OpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">CompletionsWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Completion</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a completion for the provided prompt and parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          model: ID of the model to use. You can use the</span>
+<span class="sd">              [List models](https://platform.openai.com/docs/api-reference/models/list) API to</span>
+<span class="sd">              see all of your available models, or see our</span>
+<span class="sd">              [Model overview](https://platform.openai.com/docs/models/overview) for</span>
+<span class="sd">              descriptions of them.</span>
+
+<span class="sd">          prompt: The prompt(s) to generate completions for, encoded as a string, array of</span>
+<span class="sd">              strings, array of tokens, or array of token arrays.</span>
+
+<span class="sd">              Note that &lt;|endoftext|&gt; is the document separator that the model sees during</span>
+<span class="sd">              training, so if a prompt is not specified the model will generate as if from the</span>
+<span class="sd">              beginning of a new document.</span>
+
+<span class="sd">          best_of: Generates `best_of` completions server-side and returns the &quot;best&quot; (the one with</span>
+<span class="sd">              the highest log probability per token). Results cannot be streamed.</span>
+
+<span class="sd">              When used with `n`, `best_of` controls the number of candidate completions and</span>
+<span class="sd">              `n` specifies how many to return – `best_of` must be greater than `n`.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          echo: Echo back the prompt in addition to the completion</span>
+
+<span class="sd">          frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their</span>
+<span class="sd">              existing frequency in the text so far, decreasing the model&#39;s likelihood to</span>
+<span class="sd">              repeat the same line verbatim.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          logit_bias: Modify the likelihood of specified tokens appearing in the completion.</span>
+
+<span class="sd">              Accepts a JSON object that maps tokens (specified by their token ID in the GPT</span>
+<span class="sd">              tokenizer) to an associated bias value from -100 to 100. You can use this</span>
+<span class="sd">              [tokenizer tool](/tokenizer?view=bpe) (which works for both GPT-2 and GPT-3) to</span>
+<span class="sd">              convert text to token IDs. Mathematically, the bias is added to the logits</span>
+<span class="sd">              generated by the model prior to sampling. The exact effect will vary per model,</span>
+<span class="sd">              but values between -1 and 1 should decrease or increase likelihood of selection;</span>
+<span class="sd">              values like -100 or 100 should result in a ban or exclusive selection of the</span>
+<span class="sd">              relevant token.</span>
+
+<span class="sd">              As an example, you can pass `{&quot;50256&quot;: -100}` to prevent the &lt;|endoftext|&gt; token</span>
+<span class="sd">              from being generated.</span>
+
+<span class="sd">          logprobs: Include the log probabilities on the `logprobs` most likely output tokens, as</span>
+<span class="sd">              well the chosen tokens. For example, if `logprobs` is 5, the API will return a</span>
+<span class="sd">              list of the 5 most likely tokens. The API will always return the `logprob` of</span>
+<span class="sd">              the sampled token, so there may be up to `logprobs+1` elements in the response.</span>
+
+<span class="sd">              The maximum value for `logprobs` is 5.</span>
+
+<span class="sd">          max_tokens: The maximum number of [tokens](/tokenizer) that can be generated in the</span>
+<span class="sd">              completion.</span>
+
+<span class="sd">              The token count of your prompt plus `max_tokens` cannot exceed the model&#39;s</span>
+<span class="sd">              context length.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)</span>
+<span class="sd">              for counting tokens.</span>
+
+<span class="sd">          n: How many completions to generate for each prompt.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on</span>
+<span class="sd">              whether they appear in the text so far, increasing the model&#39;s likelihood to</span>
+<span class="sd">              talk about new topics.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          seed: If specified, our system will make a best effort to sample deterministically,</span>
+<span class="sd">              such that repeated requests with the same `seed` and parameters should return</span>
+<span class="sd">              the same result.</span>
+
+<span class="sd">              Determinism is not guaranteed, and you should refer to the `system_fingerprint`</span>
+<span class="sd">              response parameter to monitor changes in the backend.</span>
+
+<span class="sd">          stop: Up to 4 sequences where the API will stop generating further tokens. The</span>
+<span class="sd">              returned text will not contain the stop sequence.</span>
+
+<span class="sd">          stream: Whether to stream back partial progress. If set, tokens will be sent as</span>
+<span class="sd">              data-only</span>
+<span class="sd">              [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)</span>
+<span class="sd">              as they become available, with the stream terminated by a `data: [DONE]`</span>
+<span class="sd">              message.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).</span>
+
+<span class="sd">          suffix: The suffix that comes after a completion of inserted text.</span>
+
+<span class="sd">          temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will</span>
+<span class="sd">              make the output more random, while lower values like 0.2 will make it more</span>
+<span class="sd">              focused and deterministic.</span>
+
+<span class="sd">              We generally recommend altering this or `top_p` but not both.</span>
+
+<span class="sd">          top_p: An alternative to sampling with temperature, called nucleus sampling, where the</span>
+<span class="sd">              model considers the results of the tokens with top_p probability mass. So 0.1</span>
+<span class="sd">              means only the tokens comprising the top 10% probability mass are considered.</span>
+
+<span class="sd">              We generally recommend altering this or `temperature` but not both.</span>
+
+<span class="sd">          user: A unique identifier representing your end-user, which can help OpenAI to monitor</span>
+<span class="sd">              and detect abuse.</span>
+<span class="sd">              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stream</span><span class="p">[</span><span class="n">Completion</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a completion for the provided prompt and parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          model: ID of the model to use. You can use the</span>
+<span class="sd">              [List models](https://platform.openai.com/docs/api-reference/models/list) API to</span>
+<span class="sd">              see all of your available models, or see our</span>
+<span class="sd">              [Model overview](https://platform.openai.com/docs/models/overview) for</span>
+<span class="sd">              descriptions of them.</span>
+
+<span class="sd">          prompt: The prompt(s) to generate completions for, encoded as a string, array of</span>
+<span class="sd">              strings, array of tokens, or array of token arrays.</span>
+
+<span class="sd">              Note that &lt;|endoftext|&gt; is the document separator that the model sees during</span>
+<span class="sd">              training, so if a prompt is not specified the model will generate as if from the</span>
+<span class="sd">              beginning of a new document.</span>
+
+<span class="sd">          stream: Whether to stream back partial progress. If set, tokens will be sent as</span>
+<span class="sd">              data-only</span>
+<span class="sd">              [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)</span>
+<span class="sd">              as they become available, with the stream terminated by a `data: [DONE]`</span>
+<span class="sd">              message.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).</span>
+
+<span class="sd">          best_of: Generates `best_of` completions server-side and returns the &quot;best&quot; (the one with</span>
+<span class="sd">              the highest log probability per token). Results cannot be streamed.</span>
+
+<span class="sd">              When used with `n`, `best_of` controls the number of candidate completions and</span>
+<span class="sd">              `n` specifies how many to return – `best_of` must be greater than `n`.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          echo: Echo back the prompt in addition to the completion</span>
+
+<span class="sd">          frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their</span>
+<span class="sd">              existing frequency in the text so far, decreasing the model&#39;s likelihood to</span>
+<span class="sd">              repeat the same line verbatim.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          logit_bias: Modify the likelihood of specified tokens appearing in the completion.</span>
+
+<span class="sd">              Accepts a JSON object that maps tokens (specified by their token ID in the GPT</span>
+<span class="sd">              tokenizer) to an associated bias value from -100 to 100. You can use this</span>
+<span class="sd">              [tokenizer tool](/tokenizer?view=bpe) (which works for both GPT-2 and GPT-3) to</span>
+<span class="sd">              convert text to token IDs. Mathematically, the bias is added to the logits</span>
+<span class="sd">              generated by the model prior to sampling. The exact effect will vary per model,</span>
+<span class="sd">              but values between -1 and 1 should decrease or increase likelihood of selection;</span>
+<span class="sd">              values like -100 or 100 should result in a ban or exclusive selection of the</span>
+<span class="sd">              relevant token.</span>
+
+<span class="sd">              As an example, you can pass `{&quot;50256&quot;: -100}` to prevent the &lt;|endoftext|&gt; token</span>
+<span class="sd">              from being generated.</span>
+
+<span class="sd">          logprobs: Include the log probabilities on the `logprobs` most likely output tokens, as</span>
+<span class="sd">              well the chosen tokens. For example, if `logprobs` is 5, the API will return a</span>
+<span class="sd">              list of the 5 most likely tokens. The API will always return the `logprob` of</span>
+<span class="sd">              the sampled token, so there may be up to `logprobs+1` elements in the response.</span>
+
+<span class="sd">              The maximum value for `logprobs` is 5.</span>
+
+<span class="sd">          max_tokens: The maximum number of [tokens](/tokenizer) that can be generated in the</span>
+<span class="sd">              completion.</span>
+
+<span class="sd">              The token count of your prompt plus `max_tokens` cannot exceed the model&#39;s</span>
+<span class="sd">              context length.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)</span>
+<span class="sd">              for counting tokens.</span>
+
+<span class="sd">          n: How many completions to generate for each prompt.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on</span>
+<span class="sd">              whether they appear in the text so far, increasing the model&#39;s likelihood to</span>
+<span class="sd">              talk about new topics.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          seed: If specified, our system will make a best effort to sample deterministically,</span>
+<span class="sd">              such that repeated requests with the same `seed` and parameters should return</span>
+<span class="sd">              the same result.</span>
+
+<span class="sd">              Determinism is not guaranteed, and you should refer to the `system_fingerprint`</span>
+<span class="sd">              response parameter to monitor changes in the backend.</span>
+
+<span class="sd">          stop: Up to 4 sequences where the API will stop generating further tokens. The</span>
+<span class="sd">              returned text will not contain the stop sequence.</span>
+
+<span class="sd">          suffix: The suffix that comes after a completion of inserted text.</span>
+
+<span class="sd">          temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will</span>
+<span class="sd">              make the output more random, while lower values like 0.2 will make it more</span>
+<span class="sd">              focused and deterministic.</span>
+
+<span class="sd">              We generally recommend altering this or `top_p` but not both.</span>
+
+<span class="sd">          top_p: An alternative to sampling with temperature, called nucleus sampling, where the</span>
+<span class="sd">              model considers the results of the tokens with top_p probability mass. So 0.1</span>
+<span class="sd">              means only the tokens comprising the top 10% probability mass are considered.</span>
+
+<span class="sd">              We generally recommend altering this or `temperature` but not both.</span>
+
+<span class="sd">          user: A unique identifier representing your end-user, which can help OpenAI to monitor</span>
+<span class="sd">              and detect abuse.</span>
+<span class="sd">              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Completion</span> <span class="o">|</span> <span class="n">Stream</span><span class="p">[</span><span class="n">Completion</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a completion for the provided prompt and parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          model: ID of the model to use. You can use the</span>
+<span class="sd">              [List models](https://platform.openai.com/docs/api-reference/models/list) API to</span>
+<span class="sd">              see all of your available models, or see our</span>
+<span class="sd">              [Model overview](https://platform.openai.com/docs/models/overview) for</span>
+<span class="sd">              descriptions of them.</span>
+
+<span class="sd">          prompt: The prompt(s) to generate completions for, encoded as a string, array of</span>
+<span class="sd">              strings, array of tokens, or array of token arrays.</span>
+
+<span class="sd">              Note that &lt;|endoftext|&gt; is the document separator that the model sees during</span>
+<span class="sd">              training, so if a prompt is not specified the model will generate as if from the</span>
+<span class="sd">              beginning of a new document.</span>
+
+<span class="sd">          stream: Whether to stream back partial progress. If set, tokens will be sent as</span>
+<span class="sd">              data-only</span>
+<span class="sd">              [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)</span>
+<span class="sd">              as they become available, with the stream terminated by a `data: [DONE]`</span>
+<span class="sd">              message.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).</span>
+
+<span class="sd">          best_of: Generates `best_of` completions server-side and returns the &quot;best&quot; (the one with</span>
+<span class="sd">              the highest log probability per token). Results cannot be streamed.</span>
+
+<span class="sd">              When used with `n`, `best_of` controls the number of candidate completions and</span>
+<span class="sd">              `n` specifies how many to return – `best_of` must be greater than `n`.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          echo: Echo back the prompt in addition to the completion</span>
+
+<span class="sd">          frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their</span>
+<span class="sd">              existing frequency in the text so far, decreasing the model&#39;s likelihood to</span>
+<span class="sd">              repeat the same line verbatim.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          logit_bias: Modify the likelihood of specified tokens appearing in the completion.</span>
+
+<span class="sd">              Accepts a JSON object that maps tokens (specified by their token ID in the GPT</span>
+<span class="sd">              tokenizer) to an associated bias value from -100 to 100. You can use this</span>
+<span class="sd">              [tokenizer tool](/tokenizer?view=bpe) (which works for both GPT-2 and GPT-3) to</span>
+<span class="sd">              convert text to token IDs. Mathematically, the bias is added to the logits</span>
+<span class="sd">              generated by the model prior to sampling. The exact effect will vary per model,</span>
+<span class="sd">              but values between -1 and 1 should decrease or increase likelihood of selection;</span>
+<span class="sd">              values like -100 or 100 should result in a ban or exclusive selection of the</span>
+<span class="sd">              relevant token.</span>
+
+<span class="sd">              As an example, you can pass `{&quot;50256&quot;: -100}` to prevent the &lt;|endoftext|&gt; token</span>
+<span class="sd">              from being generated.</span>
+
+<span class="sd">          logprobs: Include the log probabilities on the `logprobs` most likely output tokens, as</span>
+<span class="sd">              well the chosen tokens. For example, if `logprobs` is 5, the API will return a</span>
+<span class="sd">              list of the 5 most likely tokens. The API will always return the `logprob` of</span>
+<span class="sd">              the sampled token, so there may be up to `logprobs+1` elements in the response.</span>
+
+<span class="sd">              The maximum value for `logprobs` is 5.</span>
+
+<span class="sd">          max_tokens: The maximum number of [tokens](/tokenizer) that can be generated in the</span>
+<span class="sd">              completion.</span>
+
+<span class="sd">              The token count of your prompt plus `max_tokens` cannot exceed the model&#39;s</span>
+<span class="sd">              context length.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)</span>
+<span class="sd">              for counting tokens.</span>
+
+<span class="sd">          n: How many completions to generate for each prompt.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on</span>
+<span class="sd">              whether they appear in the text so far, increasing the model&#39;s likelihood to</span>
+<span class="sd">              talk about new topics.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          seed: If specified, our system will make a best effort to sample deterministically,</span>
+<span class="sd">              such that repeated requests with the same `seed` and parameters should return</span>
+<span class="sd">              the same result.</span>
+
+<span class="sd">              Determinism is not guaranteed, and you should refer to the `system_fingerprint`</span>
+<span class="sd">              response parameter to monitor changes in the backend.</span>
+
+<span class="sd">          stop: Up to 4 sequences where the API will stop generating further tokens. The</span>
+<span class="sd">              returned text will not contain the stop sequence.</span>
+
+<span class="sd">          suffix: The suffix that comes after a completion of inserted text.</span>
+
+<span class="sd">          temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will</span>
+<span class="sd">              make the output more random, while lower values like 0.2 will make it more</span>
+<span class="sd">              focused and deterministic.</span>
+
+<span class="sd">              We generally recommend altering this or `top_p` but not both.</span>
+
+<span class="sd">          top_p: An alternative to sampling with temperature, called nucleus sampling, where the</span>
+<span class="sd">              model considers the results of the tokens with top_p probability mass. So 0.1</span>
+<span class="sd">              means only the tokens comprising the top 10% probability mass are considered.</span>
+
+<span class="sd">              We generally recommend altering this or `temperature` but not both.</span>
+
+<span class="sd">          user: A unique identifier representing your end-user, which can help OpenAI to monitor</span>
+<span class="sd">              and detect abuse.</span>
+<span class="sd">              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+<div class="viewcode-block" id="Completions.create">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.completions.Completions.create">[docs]</a>
+    <span class="nd">@required_args</span><span class="p">([</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;prompt&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;prompt&quot;</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]]</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Completion</span> <span class="o">|</span> <span class="n">Stream</span><span class="p">[</span><span class="n">Completion</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/completions&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                    <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+                    <span class="s2">&quot;best_of&quot;</span><span class="p">:</span> <span class="n">best_of</span><span class="p">,</span>
+                    <span class="s2">&quot;echo&quot;</span><span class="p">:</span> <span class="n">echo</span><span class="p">,</span>
+                    <span class="s2">&quot;frequency_penalty&quot;</span><span class="p">:</span> <span class="n">frequency_penalty</span><span class="p">,</span>
+                    <span class="s2">&quot;logit_bias&quot;</span><span class="p">:</span> <span class="n">logit_bias</span><span class="p">,</span>
+                    <span class="s2">&quot;logprobs&quot;</span><span class="p">:</span> <span class="n">logprobs</span><span class="p">,</span>
+                    <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="n">max_tokens</span><span class="p">,</span>
+                    <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>
+                    <span class="s2">&quot;presence_penalty&quot;</span><span class="p">:</span> <span class="n">presence_penalty</span><span class="p">,</span>
+                    <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="n">seed</span><span class="p">,</span>
+                    <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="n">stop</span><span class="p">,</span>
+                    <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span>
+                    <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="n">suffix</span><span class="p">,</span>
+                    <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="n">temperature</span><span class="p">,</span>
+                    <span class="s2">&quot;top_p&quot;</span><span class="p">:</span> <span class="n">top_p</span><span class="p">,</span>
+                    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">completion_create_params</span><span class="o">.</span><span class="n">CompletionCreateParams</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">Completion</span><span class="p">,</span>
+            <span class="n">stream</span><span class="o">=</span><span class="n">stream</span> <span class="ow">or</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">stream_cls</span><span class="o">=</span><span class="n">Stream</span><span class="p">[</span><span class="n">Completion</span><span class="p">],</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AsyncCompletions">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.completions.AsyncCompletions">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncCompletions</span><span class="p">(</span><span class="n">AsyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">AsyncCompletionsWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncOpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">AsyncCompletionsWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Completion</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a completion for the provided prompt and parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          model: ID of the model to use. You can use the</span>
+<span class="sd">              [List models](https://platform.openai.com/docs/api-reference/models/list) API to</span>
+<span class="sd">              see all of your available models, or see our</span>
+<span class="sd">              [Model overview](https://platform.openai.com/docs/models/overview) for</span>
+<span class="sd">              descriptions of them.</span>
+
+<span class="sd">          prompt: The prompt(s) to generate completions for, encoded as a string, array of</span>
+<span class="sd">              strings, array of tokens, or array of token arrays.</span>
+
+<span class="sd">              Note that &lt;|endoftext|&gt; is the document separator that the model sees during</span>
+<span class="sd">              training, so if a prompt is not specified the model will generate as if from the</span>
+<span class="sd">              beginning of a new document.</span>
+
+<span class="sd">          best_of: Generates `best_of` completions server-side and returns the &quot;best&quot; (the one with</span>
+<span class="sd">              the highest log probability per token). Results cannot be streamed.</span>
+
+<span class="sd">              When used with `n`, `best_of` controls the number of candidate completions and</span>
+<span class="sd">              `n` specifies how many to return – `best_of` must be greater than `n`.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          echo: Echo back the prompt in addition to the completion</span>
+
+<span class="sd">          frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their</span>
+<span class="sd">              existing frequency in the text so far, decreasing the model&#39;s likelihood to</span>
+<span class="sd">              repeat the same line verbatim.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          logit_bias: Modify the likelihood of specified tokens appearing in the completion.</span>
+
+<span class="sd">              Accepts a JSON object that maps tokens (specified by their token ID in the GPT</span>
+<span class="sd">              tokenizer) to an associated bias value from -100 to 100. You can use this</span>
+<span class="sd">              [tokenizer tool](/tokenizer?view=bpe) (which works for both GPT-2 and GPT-3) to</span>
+<span class="sd">              convert text to token IDs. Mathematically, the bias is added to the logits</span>
+<span class="sd">              generated by the model prior to sampling. The exact effect will vary per model,</span>
+<span class="sd">              but values between -1 and 1 should decrease or increase likelihood of selection;</span>
+<span class="sd">              values like -100 or 100 should result in a ban or exclusive selection of the</span>
+<span class="sd">              relevant token.</span>
+
+<span class="sd">              As an example, you can pass `{&quot;50256&quot;: -100}` to prevent the &lt;|endoftext|&gt; token</span>
+<span class="sd">              from being generated.</span>
+
+<span class="sd">          logprobs: Include the log probabilities on the `logprobs` most likely output tokens, as</span>
+<span class="sd">              well the chosen tokens. For example, if `logprobs` is 5, the API will return a</span>
+<span class="sd">              list of the 5 most likely tokens. The API will always return the `logprob` of</span>
+<span class="sd">              the sampled token, so there may be up to `logprobs+1` elements in the response.</span>
+
+<span class="sd">              The maximum value for `logprobs` is 5.</span>
+
+<span class="sd">          max_tokens: The maximum number of [tokens](/tokenizer) that can be generated in the</span>
+<span class="sd">              completion.</span>
+
+<span class="sd">              The token count of your prompt plus `max_tokens` cannot exceed the model&#39;s</span>
+<span class="sd">              context length.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)</span>
+<span class="sd">              for counting tokens.</span>
+
+<span class="sd">          n: How many completions to generate for each prompt.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on</span>
+<span class="sd">              whether they appear in the text so far, increasing the model&#39;s likelihood to</span>
+<span class="sd">              talk about new topics.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          seed: If specified, our system will make a best effort to sample deterministically,</span>
+<span class="sd">              such that repeated requests with the same `seed` and parameters should return</span>
+<span class="sd">              the same result.</span>
+
+<span class="sd">              Determinism is not guaranteed, and you should refer to the `system_fingerprint`</span>
+<span class="sd">              response parameter to monitor changes in the backend.</span>
+
+<span class="sd">          stop: Up to 4 sequences where the API will stop generating further tokens. The</span>
+<span class="sd">              returned text will not contain the stop sequence.</span>
+
+<span class="sd">          stream: Whether to stream back partial progress. If set, tokens will be sent as</span>
+<span class="sd">              data-only</span>
+<span class="sd">              [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)</span>
+<span class="sd">              as they become available, with the stream terminated by a `data: [DONE]`</span>
+<span class="sd">              message.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).</span>
+
+<span class="sd">          suffix: The suffix that comes after a completion of inserted text.</span>
+
+<span class="sd">          temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will</span>
+<span class="sd">              make the output more random, while lower values like 0.2 will make it more</span>
+<span class="sd">              focused and deterministic.</span>
+
+<span class="sd">              We generally recommend altering this or `top_p` but not both.</span>
+
+<span class="sd">          top_p: An alternative to sampling with temperature, called nucleus sampling, where the</span>
+<span class="sd">              model considers the results of the tokens with top_p probability mass. So 0.1</span>
+<span class="sd">              means only the tokens comprising the top 10% probability mass are considered.</span>
+
+<span class="sd">              We generally recommend altering this or `temperature` but not both.</span>
+
+<span class="sd">          user: A unique identifier representing your end-user, which can help OpenAI to monitor</span>
+<span class="sd">              and detect abuse.</span>
+<span class="sd">              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncStream</span><span class="p">[</span><span class="n">Completion</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a completion for the provided prompt and parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          model: ID of the model to use. You can use the</span>
+<span class="sd">              [List models](https://platform.openai.com/docs/api-reference/models/list) API to</span>
+<span class="sd">              see all of your available models, or see our</span>
+<span class="sd">              [Model overview](https://platform.openai.com/docs/models/overview) for</span>
+<span class="sd">              descriptions of them.</span>
+
+<span class="sd">          prompt: The prompt(s) to generate completions for, encoded as a string, array of</span>
+<span class="sd">              strings, array of tokens, or array of token arrays.</span>
+
+<span class="sd">              Note that &lt;|endoftext|&gt; is the document separator that the model sees during</span>
+<span class="sd">              training, so if a prompt is not specified the model will generate as if from the</span>
+<span class="sd">              beginning of a new document.</span>
+
+<span class="sd">          stream: Whether to stream back partial progress. If set, tokens will be sent as</span>
+<span class="sd">              data-only</span>
+<span class="sd">              [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)</span>
+<span class="sd">              as they become available, with the stream terminated by a `data: [DONE]`</span>
+<span class="sd">              message.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).</span>
+
+<span class="sd">          best_of: Generates `best_of` completions server-side and returns the &quot;best&quot; (the one with</span>
+<span class="sd">              the highest log probability per token). Results cannot be streamed.</span>
+
+<span class="sd">              When used with `n`, `best_of` controls the number of candidate completions and</span>
+<span class="sd">              `n` specifies how many to return – `best_of` must be greater than `n`.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          echo: Echo back the prompt in addition to the completion</span>
+
+<span class="sd">          frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their</span>
+<span class="sd">              existing frequency in the text so far, decreasing the model&#39;s likelihood to</span>
+<span class="sd">              repeat the same line verbatim.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          logit_bias: Modify the likelihood of specified tokens appearing in the completion.</span>
+
+<span class="sd">              Accepts a JSON object that maps tokens (specified by their token ID in the GPT</span>
+<span class="sd">              tokenizer) to an associated bias value from -100 to 100. You can use this</span>
+<span class="sd">              [tokenizer tool](/tokenizer?view=bpe) (which works for both GPT-2 and GPT-3) to</span>
+<span class="sd">              convert text to token IDs. Mathematically, the bias is added to the logits</span>
+<span class="sd">              generated by the model prior to sampling. The exact effect will vary per model,</span>
+<span class="sd">              but values between -1 and 1 should decrease or increase likelihood of selection;</span>
+<span class="sd">              values like -100 or 100 should result in a ban or exclusive selection of the</span>
+<span class="sd">              relevant token.</span>
+
+<span class="sd">              As an example, you can pass `{&quot;50256&quot;: -100}` to prevent the &lt;|endoftext|&gt; token</span>
+<span class="sd">              from being generated.</span>
+
+<span class="sd">          logprobs: Include the log probabilities on the `logprobs` most likely output tokens, as</span>
+<span class="sd">              well the chosen tokens. For example, if `logprobs` is 5, the API will return a</span>
+<span class="sd">              list of the 5 most likely tokens. The API will always return the `logprob` of</span>
+<span class="sd">              the sampled token, so there may be up to `logprobs+1` elements in the response.</span>
+
+<span class="sd">              The maximum value for `logprobs` is 5.</span>
+
+<span class="sd">          max_tokens: The maximum number of [tokens](/tokenizer) that can be generated in the</span>
+<span class="sd">              completion.</span>
+
+<span class="sd">              The token count of your prompt plus `max_tokens` cannot exceed the model&#39;s</span>
+<span class="sd">              context length.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)</span>
+<span class="sd">              for counting tokens.</span>
+
+<span class="sd">          n: How many completions to generate for each prompt.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on</span>
+<span class="sd">              whether they appear in the text so far, increasing the model&#39;s likelihood to</span>
+<span class="sd">              talk about new topics.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          seed: If specified, our system will make a best effort to sample deterministically,</span>
+<span class="sd">              such that repeated requests with the same `seed` and parameters should return</span>
+<span class="sd">              the same result.</span>
+
+<span class="sd">              Determinism is not guaranteed, and you should refer to the `system_fingerprint`</span>
+<span class="sd">              response parameter to monitor changes in the backend.</span>
+
+<span class="sd">          stop: Up to 4 sequences where the API will stop generating further tokens. The</span>
+<span class="sd">              returned text will not contain the stop sequence.</span>
+
+<span class="sd">          suffix: The suffix that comes after a completion of inserted text.</span>
+
+<span class="sd">          temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will</span>
+<span class="sd">              make the output more random, while lower values like 0.2 will make it more</span>
+<span class="sd">              focused and deterministic.</span>
+
+<span class="sd">              We generally recommend altering this or `top_p` but not both.</span>
+
+<span class="sd">          top_p: An alternative to sampling with temperature, called nucleus sampling, where the</span>
+<span class="sd">              model considers the results of the tokens with top_p probability mass. So 0.1</span>
+<span class="sd">              means only the tokens comprising the top 10% probability mass are considered.</span>
+
+<span class="sd">              We generally recommend altering this or `temperature` but not both.</span>
+
+<span class="sd">          user: A unique identifier representing your end-user, which can help OpenAI to monitor</span>
+<span class="sd">              and detect abuse.</span>
+<span class="sd">              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Completion</span> <span class="o">|</span> <span class="n">AsyncStream</span><span class="p">[</span><span class="n">Completion</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a completion for the provided prompt and parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          model: ID of the model to use. You can use the</span>
+<span class="sd">              [List models](https://platform.openai.com/docs/api-reference/models/list) API to</span>
+<span class="sd">              see all of your available models, or see our</span>
+<span class="sd">              [Model overview](https://platform.openai.com/docs/models/overview) for</span>
+<span class="sd">              descriptions of them.</span>
+
+<span class="sd">          prompt: The prompt(s) to generate completions for, encoded as a string, array of</span>
+<span class="sd">              strings, array of tokens, or array of token arrays.</span>
+
+<span class="sd">              Note that &lt;|endoftext|&gt; is the document separator that the model sees during</span>
+<span class="sd">              training, so if a prompt is not specified the model will generate as if from the</span>
+<span class="sd">              beginning of a new document.</span>
+
+<span class="sd">          stream: Whether to stream back partial progress. If set, tokens will be sent as</span>
+<span class="sd">              data-only</span>
+<span class="sd">              [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)</span>
+<span class="sd">              as they become available, with the stream terminated by a `data: [DONE]`</span>
+<span class="sd">              message.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).</span>
+
+<span class="sd">          best_of: Generates `best_of` completions server-side and returns the &quot;best&quot; (the one with</span>
+<span class="sd">              the highest log probability per token). Results cannot be streamed.</span>
+
+<span class="sd">              When used with `n`, `best_of` controls the number of candidate completions and</span>
+<span class="sd">              `n` specifies how many to return – `best_of` must be greater than `n`.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          echo: Echo back the prompt in addition to the completion</span>
+
+<span class="sd">          frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their</span>
+<span class="sd">              existing frequency in the text so far, decreasing the model&#39;s likelihood to</span>
+<span class="sd">              repeat the same line verbatim.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          logit_bias: Modify the likelihood of specified tokens appearing in the completion.</span>
+
+<span class="sd">              Accepts a JSON object that maps tokens (specified by their token ID in the GPT</span>
+<span class="sd">              tokenizer) to an associated bias value from -100 to 100. You can use this</span>
+<span class="sd">              [tokenizer tool](/tokenizer?view=bpe) (which works for both GPT-2 and GPT-3) to</span>
+<span class="sd">              convert text to token IDs. Mathematically, the bias is added to the logits</span>
+<span class="sd">              generated by the model prior to sampling. The exact effect will vary per model,</span>
+<span class="sd">              but values between -1 and 1 should decrease or increase likelihood of selection;</span>
+<span class="sd">              values like -100 or 100 should result in a ban or exclusive selection of the</span>
+<span class="sd">              relevant token.</span>
+
+<span class="sd">              As an example, you can pass `{&quot;50256&quot;: -100}` to prevent the &lt;|endoftext|&gt; token</span>
+<span class="sd">              from being generated.</span>
+
+<span class="sd">          logprobs: Include the log probabilities on the `logprobs` most likely output tokens, as</span>
+<span class="sd">              well the chosen tokens. For example, if `logprobs` is 5, the API will return a</span>
+<span class="sd">              list of the 5 most likely tokens. The API will always return the `logprob` of</span>
+<span class="sd">              the sampled token, so there may be up to `logprobs+1` elements in the response.</span>
+
+<span class="sd">              The maximum value for `logprobs` is 5.</span>
+
+<span class="sd">          max_tokens: The maximum number of [tokens](/tokenizer) that can be generated in the</span>
+<span class="sd">              completion.</span>
+
+<span class="sd">              The token count of your prompt plus `max_tokens` cannot exceed the model&#39;s</span>
+<span class="sd">              context length.</span>
+<span class="sd">              [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)</span>
+<span class="sd">              for counting tokens.</span>
+
+<span class="sd">          n: How many completions to generate for each prompt.</span>
+
+<span class="sd">              **Note:** Because this parameter generates many completions, it can quickly</span>
+<span class="sd">              consume your token quota. Use carefully and ensure that you have reasonable</span>
+<span class="sd">              settings for `max_tokens` and `stop`.</span>
+
+<span class="sd">          presence_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on</span>
+<span class="sd">              whether they appear in the text so far, increasing the model&#39;s likelihood to</span>
+<span class="sd">              talk about new topics.</span>
+
+<span class="sd">              [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation/parameter-details)</span>
+
+<span class="sd">          seed: If specified, our system will make a best effort to sample deterministically,</span>
+<span class="sd">              such that repeated requests with the same `seed` and parameters should return</span>
+<span class="sd">              the same result.</span>
+
+<span class="sd">              Determinism is not guaranteed, and you should refer to the `system_fingerprint`</span>
+<span class="sd">              response parameter to monitor changes in the backend.</span>
+
+<span class="sd">          stop: Up to 4 sequences where the API will stop generating further tokens. The</span>
+<span class="sd">              returned text will not contain the stop sequence.</span>
+
+<span class="sd">          suffix: The suffix that comes after a completion of inserted text.</span>
+
+<span class="sd">          temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will</span>
+<span class="sd">              make the output more random, while lower values like 0.2 will make it more</span>
+<span class="sd">              focused and deterministic.</span>
+
+<span class="sd">              We generally recommend altering this or `top_p` but not both.</span>
+
+<span class="sd">          top_p: An alternative to sampling with temperature, called nucleus sampling, where the</span>
+<span class="sd">              model considers the results of the tokens with top_p probability mass. So 0.1</span>
+<span class="sd">              means only the tokens comprising the top 10% probability mass are considered.</span>
+
+<span class="sd">              We generally recommend altering this or `temperature` but not both.</span>
+
+<span class="sd">          user: A unique identifier representing your end-user, which can help OpenAI to monitor</span>
+<span class="sd">              and detect abuse.</span>
+<span class="sd">              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+<div class="viewcode-block" id="AsyncCompletions.create">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.completions.AsyncCompletions.create">[docs]</a>
+    <span class="nd">@required_args</span><span class="p">([</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;prompt&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;prompt&quot;</span><span class="p">,</span> <span class="s2">&quot;stream&quot;</span><span class="p">])</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="nb">str</span><span class="p">,</span>
+            <span class="n">Literal</span><span class="p">[</span>
+                <span class="s2">&quot;babbage-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-003&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-davinci-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;code-davinci-002&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-curie-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-babbage-001&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-ada-001&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">],</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="n">best_of</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">echo</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">frequency_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logit_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">logprobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">max_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">presence_penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">stream</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]]</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">top_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Completion</span> <span class="o">|</span> <span class="n">AsyncStream</span><span class="p">[</span><span class="n">Completion</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/completions&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                    <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+                    <span class="s2">&quot;best_of&quot;</span><span class="p">:</span> <span class="n">best_of</span><span class="p">,</span>
+                    <span class="s2">&quot;echo&quot;</span><span class="p">:</span> <span class="n">echo</span><span class="p">,</span>
+                    <span class="s2">&quot;frequency_penalty&quot;</span><span class="p">:</span> <span class="n">frequency_penalty</span><span class="p">,</span>
+                    <span class="s2">&quot;logit_bias&quot;</span><span class="p">:</span> <span class="n">logit_bias</span><span class="p">,</span>
+                    <span class="s2">&quot;logprobs&quot;</span><span class="p">:</span> <span class="n">logprobs</span><span class="p">,</span>
+                    <span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span> <span class="n">max_tokens</span><span class="p">,</span>
+                    <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>
+                    <span class="s2">&quot;presence_penalty&quot;</span><span class="p">:</span> <span class="n">presence_penalty</span><span class="p">,</span>
+                    <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="n">seed</span><span class="p">,</span>
+                    <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="n">stop</span><span class="p">,</span>
+                    <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">stream</span><span class="p">,</span>
+                    <span class="s2">&quot;suffix&quot;</span><span class="p">:</span> <span class="n">suffix</span><span class="p">,</span>
+                    <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="n">temperature</span><span class="p">,</span>
+                    <span class="s2">&quot;top_p&quot;</span><span class="p">:</span> <span class="n">top_p</span><span class="p">,</span>
+                    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">completion_create_params</span><span class="o">.</span><span class="n">CompletionCreateParams</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">Completion</span><span class="p">,</span>
+            <span class="n">stream</span><span class="o">=</span><span class="n">stream</span> <span class="ow">or</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">stream_cls</span><span class="o">=</span><span class="n">AsyncStream</span><span class="p">[</span><span class="n">Completion</span><span class="p">],</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CompletionsWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.completions.CompletionsWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">CompletionsWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">completions</span><span class="p">:</span> <span class="n">Completions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AsyncCompletionsWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.completions.AsyncCompletionsWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncCompletionsWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">completions</span><span class="p">:</span> <span class="n">AsyncCompletions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

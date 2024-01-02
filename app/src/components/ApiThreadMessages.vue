@@ -34,10 +34,14 @@ watch(
 </script>
 <template>
   <section class="col start">
-    <ul class="col start gap-4" v-if="state.currentAssistant" >
-     <AppMessage v-for="message in state.messages" :message="message" :assistant="state.currentAssistant" :user="props.user" />
+    <ul class="col start gap-4" v-if="state.currentAssistant">
+      <AppMessage
+        v-for="message in state.messages"
+        :message="message"
+        :assistant="state.currentAssistant"
+        :user="props.user"
+      />
     </ul>
-
   </section>
 </template>
 <style scoped>
@@ -75,6 +79,4 @@ img.w-8.h-8.rounded-full.m-4 {
   width: 32px; /* Ancho de la imagen */
   height: 32px; /* Altura de la imagen */
 }
-
-
 </style>

@@ -1,0 +1,30 @@
+openai.resources.beta.threads package
+=====================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.resources.beta.threads.messages
+   openai.resources.beta.threads.runs
+
+Submodules
+----------
+
+openai.resources.beta.threads.threads module
+--------------------------------------------
+
+.. automodule:: openai.resources.beta.threads.threads
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.beta.threads
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -21,7 +21,7 @@ const postThread = async () => {
   const { data } = await useFetch(`/api/threads?user=${state.user.id}`, {
     method: "POST",
     body: JSON.stringify({
-      messages:[]
+      messages: [],
     }),
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const deleteThread = async (id: string) => {
 };
 onMounted(async () => {
   await getThreads();
-}); 
+});
 </script>
 <template>
   <section class="px-2 gap-4 col start">

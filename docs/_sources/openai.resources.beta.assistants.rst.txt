@@ -1,0 +1,29 @@
+openai.resources.beta.assistants package
+========================================
+
+Submodules
+----------
+
+openai.resources.beta.assistants.assistants module
+--------------------------------------------------
+
+.. automodule:: openai.resources.beta.assistants.assistants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.beta.assistants.files module
+---------------------------------------------
+
+.. automodule:: openai.resources.beta.assistants.files
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.beta.assistants
+   :members:
+   :undoc-members:
+   :show-inheritance:

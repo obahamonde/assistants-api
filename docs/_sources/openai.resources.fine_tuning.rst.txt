@@ -1,0 +1,29 @@
+openai.resources.fine\_tuning package
+=====================================
+
+Submodules
+----------
+
+openai.resources.fine\_tuning.fine\_tuning module
+-------------------------------------------------
+
+.. automodule:: openai.resources.fine_tuning.fine_tuning
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.fine\_tuning.jobs module
+-----------------------------------------
+
+.. automodule:: openai.resources.fine_tuning.jobs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.fine_tuning
+   :members:
+   :undoc-members:
+   :show-inheritance:

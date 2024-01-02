@@ -1,0 +1,29 @@
+openai.types.shared package
+===========================
+
+Submodules
+----------
+
+openai.types.shared.function\_definition module
+-----------------------------------------------
+
+.. automodule:: openai.types.shared.function_definition
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.shared.function\_parameters module
+-----------------------------------------------
+
+.. automodule:: openai.types.shared.function_parameters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.shared
+   :members:
+   :undoc-members:
+   :show-inheritance:

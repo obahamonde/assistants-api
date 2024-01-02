@@ -45,13 +45,12 @@ onMounted(getFiles);
 </script>
 <template>
   <footer class="row center bg-gray-7 rounded-lg sh 00 px-6 max-w196 min-w168">
-  <InputFile
-    :handler="handleUpload"
-    @see="showModal = !showModal"
-    :user="user"
-  />
-
-      </footer>
+    <InputFile
+      :handler="handleUpload"
+      @see="showModal = !showModal"
+      :user="user"
+    />
+  </footer>
   <div
     v-if="showModal"
     class="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"

@@ -26,9 +26,24 @@ type ToolFunction = {
   type: "function";
 };
 
+type FunctionProperty = {
+  title?: string;
+  type?: string;
+  description?: string;
+  default?: string;
+};
+
+type FunctionParameters = {
+  type: "object";
+  properties: {
+    [key: string]: FunctionProperty;
+  };
+  required?: string[];
+};
+
 type FunctionDefinition = {
   name: string;
-  parameters: Record<string, any>;
+  parameters: FunctionParameters;
   description: string;
 };
 
@@ -307,5 +322,5 @@ export type {
   RunRequest,
   GoogleUserInfo,
   ToolAssistantToolsFunction,
-  FunctionDefinition
+  FunctionDefinition,
 };

@@ -1,0 +1,53 @@
+openai.types.audio package
+==========================
+
+Submodules
+----------
+
+openai.types.audio.speech\_create\_params module
+------------------------------------------------
+
+.. automodule:: openai.types.audio.speech_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.audio.transcription module
+---------------------------------------
+
+.. automodule:: openai.types.audio.transcription
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.audio.transcription\_create\_params module
+-------------------------------------------------------
+
+.. automodule:: openai.types.audio.transcription_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.audio.translation module
+-------------------------------------
+
+.. automodule:: openai.types.audio.translation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.audio.translation\_create\_params module
+-----------------------------------------------------
+
+.. automodule:: openai.types.audio.translation_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.audio
+   :members:
+   :undoc-members:
+   :show-inheritance:

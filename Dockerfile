@@ -8,7 +8,7 @@ RUN npm install
 
 COPY app/ ./
 
-RUN npm run build
+RUN npm run build && npm prune --production 
 
 FROM python:3.10
 

@@ -43,3 +43,4 @@ bs4
 lxml
 python-dotenv
 jinja2
+kubernetes

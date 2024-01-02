@@ -1,0 +1,45 @@
+openai.resources.audio package
+==============================
+
+Submodules
+----------
+
+openai.resources.audio.audio module
+-----------------------------------
+
+.. automodule:: openai.resources.audio.audio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.audio.speech module
+------------------------------------
+
+.. automodule:: openai.resources.audio.speech
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.audio.transcriptions module
+--------------------------------------------
+
+.. automodule:: openai.resources.audio.transcriptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.audio.translations module
+------------------------------------------
+
+.. automodule:: openai.resources.audio.translations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.audio
+   :members:
+   :undoc-members:
+   :show-inheritance:

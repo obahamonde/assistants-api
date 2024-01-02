@@ -1,0 +1,29 @@
+openai.resources.beta.threads.messages package
+==============================================
+
+Submodules
+----------
+
+openai.resources.beta.threads.messages.files module
+---------------------------------------------------
+
+.. automodule:: openai.resources.beta.threads.messages.files
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.beta.threads.messages.messages module
+------------------------------------------------------
+
+.. automodule:: openai.resources.beta.threads.messages.messages
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.beta.threads.messages
+   :members:
+   :undoc-members:
+   :show-inheritance:

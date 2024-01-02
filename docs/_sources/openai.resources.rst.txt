@@ -1,0 +1,88 @@
+openai.resources package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.resources.audio
+   openai.resources.beta
+   openai.resources.chat
+   openai.resources.fine_tuning
+
+Submodules
+----------
+
+openai.resources.completions module
+-----------------------------------
+
+.. automodule:: openai.resources.completions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.edits module
+-----------------------------
+
+.. automodule:: openai.resources.edits
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.embeddings module
+----------------------------------
+
+.. automodule:: openai.resources.embeddings
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.files module
+-----------------------------
+
+.. automodule:: openai.resources.files
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.fine\_tunes module
+-----------------------------------
+
+.. automodule:: openai.resources.fine_tunes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.images module
+------------------------------
+
+.. automodule:: openai.resources.images
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.models module
+------------------------------
+
+.. automodule:: openai.resources.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.moderations module
+-----------------------------------
+
+.. automodule:: openai.resources.moderations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources
+   :members:
+   :undoc-members:
+   :show-inheritance:

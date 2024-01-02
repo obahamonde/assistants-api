@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.resources.models &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">openai.resources.models</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for openai.resources.models</h1><div class="highlight"><pre>
+<span></span><span class="c1"># File generated from our OpenAPI spec by Stainless.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">ModelDeleted</span>
+<span class="kn">from</span> <span class="nn">.._types</span> <span class="kn">import</span> <span class="n">NOT_GIVEN</span><span class="p">,</span> <span class="n">Body</span><span class="p">,</span> <span class="n">Query</span><span class="p">,</span> <span class="n">Headers</span><span class="p">,</span> <span class="n">NotGiven</span>
+<span class="kn">from</span> <span class="nn">.._resource</span> <span class="kn">import</span> <span class="n">SyncAPIResource</span><span class="p">,</span> <span class="n">AsyncAPIResource</span>
+<span class="kn">from</span> <span class="nn">.._response</span> <span class="kn">import</span> <span class="n">to_raw_response_wrapper</span><span class="p">,</span> <span class="n">async_to_raw_response_wrapper</span>
+<span class="kn">from</span> <span class="nn">..pagination</span> <span class="kn">import</span> <span class="n">SyncPage</span><span class="p">,</span> <span class="n">AsyncPage</span>
+<span class="kn">from</span> <span class="nn">.._base_client</span> <span class="kn">import</span> <span class="n">AsyncPaginator</span><span class="p">,</span> <span class="n">make_request_options</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.._client</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Models&quot;</span><span class="p">,</span> <span class="s2">&quot;AsyncModels&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Models">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.Models">[docs]</a>
+<span class="k">class</span> <span class="nc">Models</span><span class="p">(</span><span class="n">SyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">ModelsWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">OpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">ModelsWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Models.retrieve">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.Models.retrieve">[docs]</a>
+    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Model</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves a model instance, providing basic information about the model such as</span>
+<span class="sd">        the owner and permissioning.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/models/</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">Model</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Models.list">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.Models.list">[docs]</a>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyncPage</span><span class="p">[</span><span class="n">Model</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lists the currently available models, and provides basic information about each</span>
+<span class="sd">        one such as the owner and availability.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_api_list</span><span class="p">(</span>
+            <span class="s2">&quot;/models&quot;</span><span class="p">,</span>
+            <span class="n">page</span><span class="o">=</span><span class="n">SyncPage</span><span class="p">[</span><span class="n">Model</span><span class="p">],</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">Model</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Models.delete">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.Models.delete">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelDeleted</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a fine-tuned model.</span>
+
+<span class="sd">        You must have the Owner role in your organization to</span>
+<span class="sd">        delete a model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/models/</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">ModelDeleted</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AsyncModels">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.AsyncModels">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncModels</span><span class="p">(</span><span class="n">AsyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">AsyncModelsWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncOpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">AsyncModelsWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncModels.retrieve">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.AsyncModels.retrieve">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Model</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves a model instance, providing basic information about the model such as</span>
+<span class="sd">        the owner and permissioning.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/models/</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">Model</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncModels.list">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.AsyncModels.list">[docs]</a>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncPaginator</span><span class="p">[</span><span class="n">Model</span><span class="p">,</span> <span class="n">AsyncPage</span><span class="p">[</span><span class="n">Model</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lists the currently available models, and provides basic information about each</span>
+<span class="sd">        one such as the owner and availability.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_api_list</span><span class="p">(</span>
+            <span class="s2">&quot;/models&quot;</span><span class="p">,</span>
+            <span class="n">page</span><span class="o">=</span><span class="n">AsyncPage</span><span class="p">[</span><span class="n">Model</span><span class="p">],</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">Model</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncModels.delete">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.AsyncModels.delete">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelDeleted</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a fine-tuned model.</span>
+
+<span class="sd">        You must have the Owner role in your organization to</span>
+<span class="sd">        delete a model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/models/</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">ModelDeleted</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ModelsWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.ModelsWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">ModelsWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">models</span><span class="p">:</span> <span class="n">Models</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">retrieve</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">list</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AsyncModelsWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.models.AsyncModelsWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncModelsWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">models</span><span class="p">:</span> <span class="n">AsyncModels</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">retrieve</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">list</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

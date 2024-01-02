@@ -7,7 +7,10 @@ const showInfo = ref(false);
 </script>
 <template>
   <section class="bottom-4 absolute m-4">
-    <div class="col center font-mono text-xs text-accent my-4 animate-fade-in-up" v-if="showInfo">
+    <div
+      class="col center font-mono text-xs text-accent my-4 animate-fade-in-up"
+      v-if="showInfo"
+    >
       <span>{{ props.user.name }}</span>
       <strong class="mx-4">{{ props.user.locale.toUpperCase() }}</strong>
     </div>

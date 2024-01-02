@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.types.fine_tuning package &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">openai.types.fine_tuning package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-openai.types.fine_tuning.fine_tuning_job">openai.types.fine_tuning.fine_tuning_job module</a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Error"><code class="docutils literal notranslate"><span class="pre">Error</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Error.code"><code class="docutils literal notranslate"><span class="pre">Error.code</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Error.message"><code class="docutils literal notranslate"><span class="pre">Error.message</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Error.param"><code class="docutils literal notranslate"><span class="pre">Error.param</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob"><code class="docutils literal notranslate"><span class="pre">FineTuningJob</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.created_at"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.created_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.error"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.error</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.fine_tuned_model"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.fine_tuned_model</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.finished_at"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.finished_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.hyperparameters"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.hyperparameters</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.id"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.model"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.model</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.object"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.object</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.organization_id"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.result_files"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.result_files</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.status"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.status</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.trained_tokens"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.trained_tokens</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.training_file"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.training_file</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.validation_file"><code class="docutils literal notranslate"><span class="pre">FineTuningJob.validation_file</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Hyperparameters"><code class="docutils literal notranslate"><span class="pre">Hyperparameters</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Hyperparameters.n_epochs"><code class="docutils literal notranslate"><span class="pre">Hyperparameters.n_epochs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.fine_tuning.fine_tuning_job_event">openai.types.fine_tuning.fine_tuning_job_event module</a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent"><code class="docutils literal notranslate"><span class="pre">FineTuningJobEvent</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.created_at"><code class="docutils literal notranslate"><span class="pre">FineTuningJobEvent.created_at</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.id"><code class="docutils literal notranslate"><span class="pre">FineTuningJobEvent.id</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.level"><code class="docutils literal notranslate"><span class="pre">FineTuningJobEvent.level</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.message"><code class="docutils literal notranslate"><span class="pre">FineTuningJobEvent.message</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.object"><code class="docutils literal notranslate"><span class="pre">FineTuningJobEvent.object</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.fine_tuning.job_create_params">openai.types.fine_tuning.job_create_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.Hyperparameters"><code class="docutils literal notranslate"><span class="pre">Hyperparameters</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.Hyperparameters.batch_size"><code class="docutils literal notranslate"><span class="pre">Hyperparameters.batch_size</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.Hyperparameters.learning_rate_multiplier"><code class="docutils literal notranslate"><span class="pre">Hyperparameters.learning_rate_multiplier</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.Hyperparameters.n_epochs"><code class="docutils literal notranslate"><span class="pre">Hyperparameters.n_epochs</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.JobCreateParams"><code class="docutils literal notranslate"><span class="pre">JobCreateParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.hyperparameters"><code class="docutils literal notranslate"><span class="pre">JobCreateParams.hyperparameters</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.model"><code class="docutils literal notranslate"><span class="pre">JobCreateParams.model</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.suffix"><code class="docutils literal notranslate"><span class="pre">JobCreateParams.suffix</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.training_file"><code class="docutils literal notranslate"><span class="pre">JobCreateParams.training_file</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.validation_file"><code class="docutils literal notranslate"><span class="pre">JobCreateParams.validation_file</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.fine_tuning.job_list_events_params">openai.types.fine_tuning.job_list_events_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_list_events_params.JobListEventsParams"><code class="docutils literal notranslate"><span class="pre">JobListEventsParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_list_events_params.JobListEventsParams.after"><code class="docutils literal notranslate"><span class="pre">JobListEventsParams.after</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_list_events_params.JobListEventsParams.limit"><code class="docutils literal notranslate"><span class="pre">JobListEventsParams.limit</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.fine_tuning.job_list_params">openai.types.fine_tuning.job_list_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_list_params.JobListParams"><code class="docutils literal notranslate"><span class="pre">JobListParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_list_params.JobListParams.after"><code class="docutils literal notranslate"><span class="pre">JobListParams.after</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.fine_tuning.job_list_params.JobListParams.limit"><code class="docutils literal notranslate"><span class="pre">JobListParams.limit</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.fine_tuning">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">openai.types.fine_tuning package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/openai.types.fine_tuning.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="openai-types-fine-tuning-package">
+<h1>openai.types.fine_tuning package<a class="headerlink" href="#openai-types-fine-tuning-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-openai.types.fine_tuning.fine_tuning_job">
+<span id="openai-types-fine-tuning-fine-tuning-job-module"></span><h2>openai.types.fine_tuning.fine_tuning_job module<a class="headerlink" href="#module-openai.types.fine_tuning.fine_tuning_job" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.Error">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.fine_tuning_job.</span></span><span class="sig-name descname"><span class="pre">Error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/fine_tuning/fine_tuning_job.html#Error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.Error" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.Error.code">
+<span class="sig-name descname"><span class="pre">code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.Error.code" title="Link to this definition"></a></dt>
+<dd><p>A machine-readable error code.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.Error.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.Error.message" title="Link to this definition"></a></dt>
+<dd><p>A human-readable error message.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.Error.param">
+<span class="sig-name descname"><span class="pre">param</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.Error.param" title="Link to this definition"></a></dt>
+<dd><p>The parameter that was invalid, usually <cite>training_file</cite> or <cite>validation_file</cite>.</p>
+<p>This field will be null if the failure was not parameter-specific.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.fine_tuning_job.</span></span><span class="sig-name descname"><span class="pre">FineTuningJob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Error" title="openai.types.fine_tuning.fine_tuning_job.Error"><span class="pre">Error</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fine_tuned_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finished_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperparameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Hyperparameters" title="openai.types.fine_tuning.fine_tuning_job.Hyperparameters"><span class="pre">Hyperparameters</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'fine_tuning.job'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'validating_files'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'queued'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'running'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'succeeded'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'failed'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cancelled'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trained_tokens</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validation_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/fine_tuning/fine_tuning_job.html#FineTuningJob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.created_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the fine-tuning job was created.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.error">
+<span class="sig-name descname"><span class="pre">error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Error" title="openai.types.fine_tuning.fine_tuning_job.Error"><span class="pre">Error</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.error" title="Link to this definition"></a></dt>
+<dd><p>For fine-tuning jobs that have <cite>failed</cite>, this will contain more information on
+the cause of the failure.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.fine_tuned_model">
+<span class="sig-name descname"><span class="pre">fine_tuned_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.fine_tuned_model" title="Link to this definition"></a></dt>
+<dd><p>The name of the fine-tuned model that is being created.</p>
+<p>The value will be null if the fine-tuning job is still running.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.finished_at">
+<span class="sig-name descname"><span class="pre">finished_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.finished_at" title="Link to this definition"></a></dt>
+<dd><p>The Unix timestamp (in seconds) for when the fine-tuning job was finished.</p>
+<p>The value will be null if the fine-tuning job is still running.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.hyperparameters">
+<span class="sig-name descname"><span class="pre">hyperparameters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.fine_tuning.fine_tuning_job.Hyperparameters" title="openai.types.fine_tuning.fine_tuning_job.Hyperparameters"><span class="pre">Hyperparameters</span></a></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.hyperparameters" title="Link to this definition"></a></dt>
+<dd><p>The hyperparameters used for the fine-tuning job.</p>
+<p>See the [fine-tuning guide](<a class="reference external" href="https://platform.openai.com/docs/guides/fine-tuning">https://platform.openai.com/docs/guides/fine-tuning</a>)
+for more details.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.id" title="Link to this definition"></a></dt>
+<dd><p>The object identifier, which can be referenced in the API endpoints.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.model" title="Link to this definition"></a></dt>
+<dd><p>The base model that is being fine-tuned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.object">
+<span class="sig-name descname"><span class="pre">object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'fine_tuning.job'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.object" title="Link to this definition"></a></dt>
+<dd><p>The object type, which is always “fine_tuning.job”.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.organization_id" title="Link to this definition"></a></dt>
+<dd><p>The organization that owns the fine-tuning job.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.result_files">
+<span class="sig-name descname"><span class="pre">result_files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.result_files" title="Link to this definition"></a></dt>
+<dd><p>The compiled results file ID(s) for the fine-tuning job.</p>
+<p>You can retrieve the results with the
+[Files API](<a class="reference external" href="https://platform.openai.com/docs/api-reference/files/retrieve-contents">https://platform.openai.com/docs/api-reference/files/retrieve-contents</a>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'validating_files'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'queued'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'running'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'succeeded'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'failed'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cancelled'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.status" title="Link to this definition"></a></dt>
+<dd><p>The current status of the fine-tuning job, which can be either
+<cite>validating_files</cite>, <cite>queued</cite>, <cite>running</cite>, <cite>succeeded</cite>, <cite>failed</cite>, or <cite>cancelled</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.trained_tokens">
+<span class="sig-name descname"><span class="pre">trained_tokens</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.trained_tokens" title="Link to this definition"></a></dt>
+<dd><p>The total number of billable tokens processed by this fine-tuning job.</p>
+<p>The value will be null if the fine-tuning job is still running.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.training_file">
+<span class="sig-name descname"><span class="pre">training_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.training_file" title="Link to this definition"></a></dt>
+<dd><p>The file ID used for training.</p>
+<p>You can retrieve the training data with the
+[Files API](<a class="reference external" href="https://platform.openai.com/docs/api-reference/files/retrieve-contents">https://platform.openai.com/docs/api-reference/files/retrieve-contents</a>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.FineTuningJob.validation_file">
+<span class="sig-name descname"><span class="pre">validation_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.FineTuningJob.validation_file" title="Link to this definition"></a></dt>
+<dd><p>The file ID used for validation.</p>
+<p>You can retrieve the validation results with the
+[Files API](<a class="reference external" href="https://platform.openai.com/docs/api-reference/files/retrieve-contents">https://platform.openai.com/docs/api-reference/files/retrieve-contents</a>).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.Hyperparameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.fine_tuning_job.</span></span><span class="sig-name descname"><span class="pre">Hyperparameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/fine_tuning/fine_tuning_job.html#Hyperparameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.Hyperparameters" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job.Hyperparameters.n_epochs">
+<span class="sig-name descname"><span class="pre">n_epochs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job.Hyperparameters.n_epochs" title="Link to this definition"></a></dt>
+<dd><p>The number of epochs to train the model for.</p>
+<p>An epoch refers to one full cycle through the training dataset. “auto” decides
+the optimal number of epochs based on the size of the dataset. If setting the
+number manually, we support any number between 1 and 50 epochs.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.fine_tuning.fine_tuning_job_event">
+<span id="openai-types-fine-tuning-fine-tuning-job-event-module"></span><h2>openai.types.fine_tuning.fine_tuning_job_event module<a class="headerlink" href="#module-openai.types.fine_tuning.fine_tuning_job_event" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.fine_tuning_job_event.</span></span><span class="sig-name descname"><span class="pre">FineTuningJobEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'info'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'warn'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'error'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'fine_tuning.job.event'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/fine_tuning/fine_tuning_job_event.html#FineTuningJobEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.level">
+<span class="sig-name descname"><span class="pre">level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'info'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'warn'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'error'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.level" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.message">
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.message" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.object">
+<span class="sig-name descname"><span class="pre">object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'fine_tuning.job.event'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.fine_tuning.fine_tuning_job_event.FineTuningJobEvent.object" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.fine_tuning.job_create_params">
+<span id="openai-types-fine-tuning-job-create-params-module"></span><h2>openai.types.fine_tuning.job_create_params module<a class="headerlink" href="#module-openai.types.fine_tuning.job_create_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.Hyperparameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.job_create_params.</span></span><span class="sig-name descname"><span class="pre">Hyperparameters</span></span><a class="reference internal" href="_modules/openai/types/fine_tuning/job_create_params.html#Hyperparameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.Hyperparameters" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.Hyperparameters.batch_size">
+<span class="sig-name descname"><span class="pre">batch_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.Hyperparameters.batch_size" title="Link to this definition"></a></dt>
+<dd><p>Number of examples in each batch.</p>
+<p>A larger batch size means that model parameters are updated less frequently, but
+with lower variance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.Hyperparameters.learning_rate_multiplier">
+<span class="sig-name descname"><span class="pre">learning_rate_multiplier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.Hyperparameters.learning_rate_multiplier" title="Link to this definition"></a></dt>
+<dd><p>Scaling factor for the learning rate.</p>
+<p>A smaller learning rate may be useful to avoid overfitting.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.Hyperparameters.n_epochs">
+<span class="sig-name descname"><span class="pre">n_epochs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'auto'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.Hyperparameters.n_epochs" title="Link to this definition"></a></dt>
+<dd><p>The number of epochs to train the model for.</p>
+<p>An epoch refers to one full cycle through the training dataset.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.JobCreateParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.job_create_params.</span></span><span class="sig-name descname"><span class="pre">JobCreateParams</span></span><a class="reference internal" href="_modules/openai/types/fine_tuning/job_create_params.html#JobCreateParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.JobCreateParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.JobCreateParams.hyperparameters">
+<span class="sig-name descname"><span class="pre">hyperparameters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#openai.types.fine_tuning.job_create_params.Hyperparameters" title="openai.types.fine_tuning.job_create_params.Hyperparameters"><span class="pre">Hyperparameters</span></a></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.hyperparameters" title="Link to this definition"></a></dt>
+<dd><p>The hyperparameters used for the fine-tuning job.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.JobCreateParams.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'babbage-002'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'davinci-002'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'gpt-3.5-turbo'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.model" title="Link to this definition"></a></dt>
+<dd><p>The name of the model to fine-tune.</p>
+<p>You can select one of the
+[supported models](<a class="reference external" href="https://platform.openai.com/docs/guides/fine-tuning/what-models-can-be-fine-tuned">https://platform.openai.com/docs/guides/fine-tuning/what-models-can-be-fine-tuned</a>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.JobCreateParams.suffix">
+<span class="sig-name descname"><span class="pre">suffix</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.suffix" title="Link to this definition"></a></dt>
+<dd><p>A string of up to 18 characters that will be added to your fine-tuned model
+name.</p>
+<p>For example, a <cite>suffix</cite> of “custom-model-name” would produce a model name like
+<cite>ft:gpt-3.5-turbo:openai:custom-model-name:7p4lURel</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.JobCreateParams.training_file">
+<span class="sig-name descname"><span class="pre">training_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.training_file" title="Link to this definition"></a></dt>
+<dd><p>The ID of an uploaded file that contains training data.</p>
+<p>See [upload file](<a class="reference external" href="https://platform.openai.com/docs/api-reference/files/upload">https://platform.openai.com/docs/api-reference/files/upload</a>)
+for how to upload a file.</p>
+<p>Your dataset must be formatted as a JSONL file. Additionally, you must upload
+your file with the purpose <cite>fine-tune</cite>.</p>
+<p>See the [fine-tuning guide](<a class="reference external" href="https://platform.openai.com/docs/guides/fine-tuning">https://platform.openai.com/docs/guides/fine-tuning</a>)
+for more details.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_create_params.JobCreateParams.validation_file">
+<span class="sig-name descname"><span class="pre">validation_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_create_params.JobCreateParams.validation_file" title="Link to this definition"></a></dt>
+<dd><p>The ID of an uploaded file that contains validation data.</p>
+<p>If you provide this file, the data is used to generate validation metrics
+periodically during fine-tuning. These metrics can be viewed in the fine-tuning
+results file. The same data should not be present in both train and validation
+files.</p>
+<p>Your dataset must be formatted as a JSONL file. You must upload your file with
+the purpose <cite>fine-tune</cite>.</p>
+<p>See the [fine-tuning guide](<a class="reference external" href="https://platform.openai.com/docs/guides/fine-tuning">https://platform.openai.com/docs/guides/fine-tuning</a>)
+for more details.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.fine_tuning.job_list_events_params">
+<span id="openai-types-fine-tuning-job-list-events-params-module"></span><h2>openai.types.fine_tuning.job_list_events_params module<a class="headerlink" href="#module-openai.types.fine_tuning.job_list_events_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_list_events_params.JobListEventsParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.job_list_events_params.</span></span><span class="sig-name descname"><span class="pre">JobListEventsParams</span></span><a class="reference internal" href="_modules/openai/types/fine_tuning/job_list_events_params.html#JobListEventsParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.job_list_events_params.JobListEventsParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_list_events_params.JobListEventsParams.after">
+<span class="sig-name descname"><span class="pre">after</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_list_events_params.JobListEventsParams.after" title="Link to this definition"></a></dt>
+<dd><p>Identifier for the last event from the previous pagination request.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_list_events_params.JobListEventsParams.limit">
+<span class="sig-name descname"><span class="pre">limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_list_events_params.JobListEventsParams.limit" title="Link to this definition"></a></dt>
+<dd><p>Number of events to retrieve.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.fine_tuning.job_list_params">
+<span id="openai-types-fine-tuning-job-list-params-module"></span><h2>openai.types.fine_tuning.job_list_params module<a class="headerlink" href="#module-openai.types.fine_tuning.job_list_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_list_params.JobListParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.fine_tuning.job_list_params.</span></span><span class="sig-name descname"><span class="pre">JobListParams</span></span><a class="reference internal" href="_modules/openai/types/fine_tuning/job_list_params.html#JobListParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.fine_tuning.job_list_params.JobListParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_list_params.JobListParams.after">
+<span class="sig-name descname"><span class="pre">after</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_list_params.JobListParams.after" title="Link to this definition"></a></dt>
+<dd><p>Identifier for the last job from the previous pagination request.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.fine_tuning.job_list_params.JobListParams.limit">
+<span class="sig-name descname"><span class="pre">limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#openai.types.fine_tuning.job_list_params.JobListParams.limit" title="Link to this definition"></a></dt>
+<dd><p>Number of fine-tuning jobs to retrieve.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.fine_tuning">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-openai.types.fine_tuning" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

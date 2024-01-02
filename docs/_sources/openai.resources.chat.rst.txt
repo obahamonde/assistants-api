@@ -1,0 +1,29 @@
+openai.resources.chat package
+=============================
+
+Submodules
+----------
+
+openai.resources.chat.chat module
+---------------------------------
+
+.. automodule:: openai.resources.chat.chat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.resources.chat.completions module
+----------------------------------------
+
+.. automodule:: openai.resources.chat.completions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.chat
+   :members:
+   :undoc-members:
+   :show-inheritance:

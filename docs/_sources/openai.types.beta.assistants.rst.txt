@@ -1,0 +1,45 @@
+openai.types.beta.assistants package
+====================================
+
+Submodules
+----------
+
+openai.types.beta.assistants.assistant\_file module
+---------------------------------------------------
+
+.. automodule:: openai.types.beta.assistants.assistant_file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistants.file\_create\_params module
+--------------------------------------------------------
+
+.. automodule:: openai.types.beta.assistants.file_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistants.file\_delete\_response module
+----------------------------------------------------------
+
+.. automodule:: openai.types.beta.assistants.file_delete_response
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistants.file\_list\_params module
+------------------------------------------------------
+
+.. automodule:: openai.types.beta.assistants.file_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.beta.assistants
+   :members:
+   :undoc-members:
+   :show-inheritance:

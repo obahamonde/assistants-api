@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.resources.files &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">openai.resources.files</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for openai.resources.files</h1><div class="highlight"><pre>
+<span></span><span class="c1"># File generated from our OpenAPI spec by Stainless.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">typing_extensions</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">FileObject</span><span class="p">,</span> <span class="n">FileDeleted</span><span class="p">,</span> <span class="n">file_list_params</span><span class="p">,</span> <span class="n">file_create_params</span>
+<span class="kn">from</span> <span class="nn">.._types</span> <span class="kn">import</span> <span class="n">NOT_GIVEN</span><span class="p">,</span> <span class="n">Body</span><span class="p">,</span> <span class="n">Query</span><span class="p">,</span> <span class="n">Headers</span><span class="p">,</span> <span class="n">NotGiven</span><span class="p">,</span> <span class="n">FileTypes</span>
+<span class="kn">from</span> <span class="nn">.._utils</span> <span class="kn">import</span> <span class="n">extract_files</span><span class="p">,</span> <span class="n">maybe_transform</span><span class="p">,</span> <span class="n">deepcopy_minimal</span>
+<span class="kn">from</span> <span class="nn">.._resource</span> <span class="kn">import</span> <span class="n">SyncAPIResource</span><span class="p">,</span> <span class="n">AsyncAPIResource</span>
+<span class="kn">from</span> <span class="nn">.._response</span> <span class="kn">import</span> <span class="n">to_raw_response_wrapper</span><span class="p">,</span> <span class="n">async_to_raw_response_wrapper</span>
+<span class="kn">from</span> <span class="nn">..pagination</span> <span class="kn">import</span> <span class="n">SyncPage</span><span class="p">,</span> <span class="n">AsyncPage</span>
+<span class="kn">from</span> <span class="nn">.._base_client</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AsyncPaginator</span><span class="p">,</span>
+    <span class="n">HttpxBinaryResponseContent</span><span class="p">,</span>
+    <span class="n">make_request_options</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.._client</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Files&quot;</span><span class="p">,</span> <span class="s2">&quot;AsyncFiles&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Files">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files">[docs]</a>
+<span class="k">class</span> <span class="nc">Files</span><span class="p">(</span><span class="n">SyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">FilesWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">OpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">FilesWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Files.create">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="n">FileTypes</span><span class="p">,</span>
+        <span class="n">purpose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;fine-tune&quot;</span><span class="p">,</span> <span class="s2">&quot;assistants&quot;</span><span class="p">],</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Upload a file that can be used across various endpoints.</span>
+
+<span class="sd">        The size of all the</span>
+<span class="sd">        files uploaded by one organization can be up to 100 GB.</span>
+
+<span class="sd">        The size of individual files can be a maximum of 512 MB or 2 million tokens for</span>
+<span class="sd">        Assistants. See the</span>
+<span class="sd">        [Assistants Tools guide](https://platform.openai.com/docs/assistants/tools) to</span>
+<span class="sd">        learn more about the types of files supported. The Fine-tuning API only supports</span>
+<span class="sd">        `.jsonl` files.</span>
+
+<span class="sd">        Please [contact us](https://help.openai.com/) if you need to increase these</span>
+<span class="sd">        storage limits.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          file: The File object (not file name) to be uploaded.</span>
+
+<span class="sd">          purpose: The intended purpose of the uploaded file.</span>
+
+<span class="sd">              Use &quot;fine-tune&quot; for</span>
+<span class="sd">              [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning) and</span>
+<span class="sd">              &quot;assistants&quot; for</span>
+<span class="sd">              [Assistants](https://platform.openai.com/docs/api-reference/assistants) and</span>
+<span class="sd">              [Messages](https://platform.openai.com/docs/api-reference/messages). This allows</span>
+<span class="sd">              us to validate the format of the uploaded file is correct for fine-tuning.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">deepcopy_minimal</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span>
+                <span class="s2">&quot;purpose&quot;</span><span class="p">:</span> <span class="n">purpose</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">extract_files</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span> <span class="n">body</span><span class="p">),</span> <span class="n">paths</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;file&quot;</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">files</span><span class="p">:</span>
+            <span class="c1"># It should be noted that the actual Content-Type header that will be</span>
+            <span class="c1"># sent to the server will contain a `boundary` parameter, e.g.</span>
+            <span class="c1"># multipart/form-data; boundary=---abc--</span>
+            <span class="n">extra_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;multipart/form-data&quot;</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">extra_headers</span> <span class="ow">or</span> <span class="p">{})}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/files&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">file_create_params</span><span class="o">.</span><span class="n">FileCreateParams</span><span class="p">),</span>
+            <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">FileObject</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Files.retrieve">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.retrieve">[docs]</a>
+    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about a specific file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">FileObject</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Files.list">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.list">[docs]</a>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SyncPage</span><span class="p">[</span><span class="n">FileObject</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of files that belong to the user&#39;s organization.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          purpose: Only return files with the given purpose.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_api_list</span><span class="p">(</span>
+            <span class="s2">&quot;/files&quot;</span><span class="p">,</span>
+            <span class="n">page</span><span class="o">=</span><span class="n">SyncPage</span><span class="p">[</span><span class="n">FileObject</span><span class="p">],</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span>
+                <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span>
+                <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="n">query</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">({</span><span class="s2">&quot;purpose&quot;</span><span class="p">:</span> <span class="n">purpose</span><span class="p">},</span> <span class="n">file_list_params</span><span class="o">.</span><span class="n">FileListParams</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">FileObject</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Files.delete">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.delete">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileDeleted</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">FileDeleted</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Files.content">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.content">[docs]</a>
+    <span class="k">def</span> <span class="nf">content</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpxBinaryResponseContent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of the specified file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">/content&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">HttpxBinaryResponseContent</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Files.retrieve_content">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.retrieve_content">[docs]</a>
+    <span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="s2">&quot;The `.content()` method should be used instead&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">retrieve_content</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of the specified file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extra_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">extra_headers</span> <span class="ow">or</span> <span class="p">{})}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">/content&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Files.wait_for_processing">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.Files.wait_for_processing">[docs]</a>
+    <span class="k">def</span> <span class="nf">wait_for_processing</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">max_wait_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Waits for the given file to be processed, default timeout is 30 mins.&quot;&quot;&quot;</span>
+        <span class="n">TERMINAL_STATES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;processed&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">}</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TERMINAL_STATES</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sleep</span><span class="p">(</span><span class="n">poll_interval</span><span class="p">)</span>
+
+            <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">max_wait_seconds</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Giving up on waiting for file </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> to finish processing after </span><span class="si">{</span><span class="n">max_wait_seconds</span><span class="si">}</span><span class="s2"> seconds.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">file</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AsyncFiles">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncFiles</span><span class="p">(</span><span class="n">AsyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">AsyncFilesWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncOpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">AsyncFilesWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncFiles.create">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.create">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">file</span><span class="p">:</span> <span class="n">FileTypes</span><span class="p">,</span>
+        <span class="n">purpose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;fine-tune&quot;</span><span class="p">,</span> <span class="s2">&quot;assistants&quot;</span><span class="p">],</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Upload a file that can be used across various endpoints.</span>
+
+<span class="sd">        The size of all the</span>
+<span class="sd">        files uploaded by one organization can be up to 100 GB.</span>
+
+<span class="sd">        The size of individual files can be a maximum of 512 MB or 2 million tokens for</span>
+<span class="sd">        Assistants. See the</span>
+<span class="sd">        [Assistants Tools guide](https://platform.openai.com/docs/assistants/tools) to</span>
+<span class="sd">        learn more about the types of files supported. The Fine-tuning API only supports</span>
+<span class="sd">        `.jsonl` files.</span>
+
+<span class="sd">        Please [contact us](https://help.openai.com/) if you need to increase these</span>
+<span class="sd">        storage limits.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          file: The File object (not file name) to be uploaded.</span>
+
+<span class="sd">          purpose: The intended purpose of the uploaded file.</span>
+
+<span class="sd">              Use &quot;fine-tune&quot; for</span>
+<span class="sd">              [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning) and</span>
+<span class="sd">              &quot;assistants&quot; for</span>
+<span class="sd">              [Assistants](https://platform.openai.com/docs/api-reference/assistants) and</span>
+<span class="sd">              [Messages](https://platform.openai.com/docs/api-reference/messages). This allows</span>
+<span class="sd">              us to validate the format of the uploaded file is correct for fine-tuning.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">deepcopy_minimal</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span>
+                <span class="s2">&quot;purpose&quot;</span><span class="p">:</span> <span class="n">purpose</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">extract_files</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span> <span class="n">body</span><span class="p">),</span> <span class="n">paths</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;file&quot;</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">files</span><span class="p">:</span>
+            <span class="c1"># It should be noted that the actual Content-Type header that will be</span>
+            <span class="c1"># sent to the server will contain a `boundary` parameter, e.g.</span>
+            <span class="c1"># multipart/form-data; boundary=---abc--</span>
+            <span class="n">extra_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;multipart/form-data&quot;</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">extra_headers</span> <span class="ow">or</span> <span class="p">{})}</span>
+
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/files&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">file_create_params</span><span class="o">.</span><span class="n">FileCreateParams</span><span class="p">),</span>
+            <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">FileObject</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncFiles.retrieve">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.retrieve">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about a specific file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">FileObject</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncFiles.list">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.list">[docs]</a>
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">purpose</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncPaginator</span><span class="p">[</span><span class="n">FileObject</span><span class="p">,</span> <span class="n">AsyncPage</span><span class="p">[</span><span class="n">FileObject</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of files that belong to the user&#39;s organization.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          purpose: Only return files with the given purpose.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_api_list</span><span class="p">(</span>
+            <span class="s2">&quot;/files&quot;</span><span class="p">,</span>
+            <span class="n">page</span><span class="o">=</span><span class="n">AsyncPage</span><span class="p">[</span><span class="n">FileObject</span><span class="p">],</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span>
+                <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span>
+                <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="n">query</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">({</span><span class="s2">&quot;purpose&quot;</span><span class="p">:</span> <span class="n">purpose</span><span class="p">},</span> <span class="n">file_list_params</span><span class="o">.</span><span class="n">FileListParams</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">FileObject</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncFiles.delete">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.delete">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileDeleted</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">FileDeleted</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncFiles.content">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.content">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">content</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HttpxBinaryResponseContent</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of the specified file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">/content&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">HttpxBinaryResponseContent</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncFiles.retrieve_content">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.retrieve_content">[docs]</a>
+    <span class="nd">@typing_extensions</span><span class="o">.</span><span class="n">deprecated</span><span class="p">(</span><span class="s2">&quot;The `.content()` method should be used instead&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">retrieve_content</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of the specified file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extra_headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">extra_headers</span> <span class="ow">or</span> <span class="p">{})}</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;/files/</span><span class="si">{</span><span class="n">file_id</span><span class="si">}</span><span class="s2">/content&quot;</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AsyncFiles.wait_for_processing">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFiles.wait_for_processing">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wait_for_processing</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">max_wait_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Waits for the given file to be processed, default timeout is 30 mins.&quot;&quot;&quot;</span>
+        <span class="n">TERMINAL_STATES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;processed&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">}</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TERMINAL_STATES</span><span class="p">:</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sleep</span><span class="p">(</span><span class="n">poll_interval</span><span class="p">)</span>
+
+            <span class="n">file</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">max_wait_seconds</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Giving up on waiting for file </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> to finish processing after </span><span class="si">{</span><span class="n">max_wait_seconds</span><span class="si">}</span><span class="s2"> seconds.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">file</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FilesWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.FilesWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">FilesWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">Files</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">retrieve</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">list</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retrieve_content</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>  <span class="c1"># pyright: ignore[reportDeprecated]</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">retrieve_content</span>  <span class="c1"># pyright: ignore[reportDeprecated],</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AsyncFilesWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.files.AsyncFilesWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncFilesWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">AsyncFiles</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">retrieve</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">list</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">delete</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">retrieve_content</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>  <span class="c1"># pyright: ignore[reportDeprecated]</span>
+            <span class="n">files</span><span class="o">.</span><span class="n">retrieve_content</span>  <span class="c1"># pyright: ignore[reportDeprecated],</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

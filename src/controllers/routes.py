@@ -1,7 +1,7 @@
 from fastapi import File, UploadFile
 from sse_starlette.sse import EventSourceResponse
 
-from ..resources import (
+from ..schemas import (
     AssistantRequest,
     AssistantResponse,
     AssistantService,
@@ -16,7 +16,7 @@ from ..resources import (
     ThreadResponse,
     ThreadService,
 )
-from ..resources import ThreadMessage as ThreadMessageResponse
+from ..schemas import ThreadMessage as ThreadMessageResponse
 from ._controller import APIRouter, Controller
 from .auth import app as auth_app
 

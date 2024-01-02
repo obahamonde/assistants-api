@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.types.audio package &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">openai.types.audio package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-openai.types.audio.speech_create_params">openai.types.audio.speech_create_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.audio.speech_create_params.SpeechCreateParams"><code class="docutils literal notranslate"><span class="pre">SpeechCreateParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.audio.speech_create_params.SpeechCreateParams.input"><code class="docutils literal notranslate"><span class="pre">SpeechCreateParams.input</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.speech_create_params.SpeechCreateParams.model"><code class="docutils literal notranslate"><span class="pre">SpeechCreateParams.model</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.speech_create_params.SpeechCreateParams.response_format"><code class="docutils literal notranslate"><span class="pre">SpeechCreateParams.response_format</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.speech_create_params.SpeechCreateParams.speed"><code class="docutils literal notranslate"><span class="pre">SpeechCreateParams.speed</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.speech_create_params.SpeechCreateParams.voice"><code class="docutils literal notranslate"><span class="pre">SpeechCreateParams.voice</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.audio.transcription">openai.types.audio.transcription module</a><ul>
+<li><a class="reference internal" href="#openai.types.audio.transcription.Transcription"><code class="docutils literal notranslate"><span class="pre">Transcription</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.audio.transcription.Transcription.text"><code class="docutils literal notranslate"><span class="pre">Transcription.text</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.audio.transcription_create_params">openai.types.audio.transcription_create_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.file"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams.file</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.language"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams.language</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.model"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams.model</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.prompt"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams.prompt</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.response_format"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams.response_format</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.temperature"><code class="docutils literal notranslate"><span class="pre">TranscriptionCreateParams.temperature</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.audio.translation">openai.types.audio.translation module</a><ul>
+<li><a class="reference internal" href="#openai.types.audio.translation.Translation"><code class="docutils literal notranslate"><span class="pre">Translation</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.audio.translation.Translation.text"><code class="docutils literal notranslate"><span class="pre">Translation.text</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.audio.translation_create_params">openai.types.audio.translation_create_params module</a><ul>
+<li><a class="reference internal" href="#openai.types.audio.translation_create_params.TranslationCreateParams"><code class="docutils literal notranslate"><span class="pre">TranslationCreateParams</span></code></a><ul>
+<li><a class="reference internal" href="#openai.types.audio.translation_create_params.TranslationCreateParams.file"><code class="docutils literal notranslate"><span class="pre">TranslationCreateParams.file</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.translation_create_params.TranslationCreateParams.model"><code class="docutils literal notranslate"><span class="pre">TranslationCreateParams.model</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.translation_create_params.TranslationCreateParams.prompt"><code class="docutils literal notranslate"><span class="pre">TranslationCreateParams.prompt</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.translation_create_params.TranslationCreateParams.response_format"><code class="docutils literal notranslate"><span class="pre">TranslationCreateParams.response_format</span></code></a></li>
+<li><a class="reference internal" href="#openai.types.audio.translation_create_params.TranslationCreateParams.temperature"><code class="docutils literal notranslate"><span class="pre">TranslationCreateParams.temperature</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-openai.types.audio">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">openai.types.audio package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/openai.types.audio.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="openai-types-audio-package">
+<h1>openai.types.audio package<a class="headerlink" href="#openai-types-audio-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-openai.types.audio.speech_create_params">
+<span id="openai-types-audio-speech-create-params-module"></span><h2>openai.types.audio.speech_create_params module<a class="headerlink" href="#module-openai.types.audio.speech_create_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.audio.speech_create_params.SpeechCreateParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.audio.speech_create_params.</span></span><span class="sig-name descname"><span class="pre">SpeechCreateParams</span></span><a class="reference internal" href="_modules/openai/types/audio/speech_create_params.html#SpeechCreateParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.audio.speech_create_params.SpeechCreateParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.speech_create_params.SpeechCreateParams.input">
+<span class="sig-name descname"><span class="pre">input</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.speech_create_params.SpeechCreateParams.input" title="Link to this definition"></a></dt>
+<dd><p>The text to generate audio for. The maximum length is 4096 characters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.speech_create_params.SpeechCreateParams.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'tts-1'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'tts-1-hd'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.speech_create_params.SpeechCreateParams.model" title="Link to this definition"></a></dt>
+<dd><p>//platform.openai.com/docs/models/tts):
+<cite>tts-1</cite> or <cite>tts-1-hd</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>One of the available [TTS models](https</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.speech_create_params.SpeechCreateParams.response_format">
+<span class="sig-name descname"><span class="pre">response_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'mp3'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'opus'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'aac'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'flac'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.speech_create_params.SpeechCreateParams.response_format" title="Link to this definition"></a></dt>
+<dd><p>The format to audio in. Supported formats are <cite>mp3</cite>, <cite>opus</cite>, <cite>aac</cite>, and <cite>flac</cite>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.speech_create_params.SpeechCreateParams.speed">
+<span class="sig-name descname"><span class="pre">speed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#openai.types.audio.speech_create_params.SpeechCreateParams.speed" title="Link to this definition"></a></dt>
+<dd><p>The speed of the generated audio.</p>
+<p>Select a value from <cite>0.25</cite> to <cite>4.0</cite>. <cite>1.0</cite> is the default.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.speech_create_params.SpeechCreateParams.voice">
+<span class="sig-name descname"><span class="pre">voice</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'alloy'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'echo'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'fable'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'onyx'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'nova'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'shimmer'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.speech_create_params.SpeechCreateParams.voice" title="Link to this definition"></a></dt>
+<dd><p>The voice to use when generating the audio.</p>
+<p>Supported voices are <cite>alloy</cite>, <cite>echo</cite>, <cite>fable</cite>, <cite>onyx</cite>, <cite>nova</cite>, and <cite>shimmer</cite>.
+Previews of the voices are available in the
+[Text to speech guide](<a class="reference external" href="https://platform.openai.com/docs/guides/text-to-speech/voice-options">https://platform.openai.com/docs/guides/text-to-speech/voice-options</a>).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.audio.transcription">
+<span id="openai-types-audio-transcription-module"></span><h2>openai.types.audio.transcription module<a class="headerlink" href="#module-openai.types.audio.transcription" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.audio.transcription.Transcription">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.audio.transcription.</span></span><span class="sig-name descname"><span class="pre">Transcription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/audio/transcription.html#Transcription"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.audio.transcription.Transcription" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription.Transcription.text">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.transcription.Transcription.text" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.audio.transcription_create_params">
+<span id="openai-types-audio-transcription-create-params-module"></span><h2>openai.types.audio.transcription_create_params module<a class="headerlink" href="#module-openai.types.audio.transcription_create_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.audio.transcription_create_params.</span></span><span class="sig-name descname"><span class="pre">TranscriptionCreateParams</span></span><a class="reference internal" href="_modules/openai/types/audio/transcription_create_params.html#TranscriptionCreateParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.file" title="Link to this definition"></a></dt>
+<dd><p>The audio file object (not file name) to transcribe, in one of these formats:
+flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams.language">
+<span class="sig-name descname"><span class="pre">language</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.language" title="Link to this definition"></a></dt>
+<dd><p>The language of the input audio.</p>
+<p>Supplying the input language in
+[ISO-639-1](<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes</a>) format will
+improve accuracy and latency.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'whisper-1'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.model" title="Link to this definition"></a></dt>
+<dd><p>ID of the model to use. Only <cite>whisper-1</cite> is currently available.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams.prompt">
+<span class="sig-name descname"><span class="pre">prompt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.prompt" title="Link to this definition"></a></dt>
+<dd><p>An optional text to guide the model’s style or continue a previous audio
+segment.</p>
+<p>The [prompt](<a class="reference external" href="https://platform.openai.com/docs/guides/speech-to-text/prompting">https://platform.openai.com/docs/guides/speech-to-text/prompting</a>)
+should match the audio language.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams.response_format">
+<span class="sig-name descname"><span class="pre">response_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'json'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'text'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'srt'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'verbose_json'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'vtt'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.response_format" title="Link to this definition"></a></dt>
+<dd><p><cite>json</cite>, <cite>text</cite>,
+<cite>srt</cite>, <cite>verbose_json</cite>, or <cite>vtt</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The format of the transcript output, in one of these options</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.transcription_create_params.TranscriptionCreateParams.temperature">
+<span class="sig-name descname"><span class="pre">temperature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#openai.types.audio.transcription_create_params.TranscriptionCreateParams.temperature" title="Link to this definition"></a></dt>
+<dd><p>The sampling temperature, between 0 and 1.</p>
+<p>Higher values like 0.8 will make the output more random, while lower values like
+0.2 will make it more focused and deterministic. If set to 0, the model will use
+[log probability](<a class="reference external" href="https://en.wikipedia.org/wiki/Log_probability">https://en.wikipedia.org/wiki/Log_probability</a>) to
+automatically increase the temperature until certain thresholds are hit.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.audio.translation">
+<span id="openai-types-audio-translation-module"></span><h2>openai.types.audio.translation module<a class="headerlink" href="#module-openai.types.audio.translation" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.audio.translation.Translation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.audio.translation.</span></span><span class="sig-name descname"><span class="pre">Translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">extra_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/openai/types/audio/translation.html#Translation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.audio.translation.Translation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.translation.Translation.text">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.translation.Translation.text" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.audio.translation_create_params">
+<span id="openai-types-audio-translation-create-params-module"></span><h2>openai.types.audio.translation_create_params module<a class="headerlink" href="#module-openai.types.audio.translation_create_params" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="openai.types.audio.translation_create_params.TranslationCreateParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openai.types.audio.translation_create_params.</span></span><span class="sig-name descname"><span class="pre">TranslationCreateParams</span></span><a class="reference internal" href="_modules/openai/types/audio/translation_create_params.html#TranslationCreateParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#openai.types.audio.translation_create_params.TranslationCreateParams" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.translation_create_params.TranslationCreateParams.file">
+<span class="sig-name descname"><span class="pre">file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">IO</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.translation_create_params.TranslationCreateParams.file" title="Link to this definition"></a></dt>
+<dd><p>flac,
+mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The audio file object (not file name) translate, in one of these formats</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.translation_create_params.TranslationCreateParams.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'whisper-1'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#openai.types.audio.translation_create_params.TranslationCreateParams.model" title="Link to this definition"></a></dt>
+<dd><p>ID of the model to use. Only <cite>whisper-1</cite> is currently available.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.translation_create_params.TranslationCreateParams.prompt">
+<span class="sig-name descname"><span class="pre">prompt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.translation_create_params.TranslationCreateParams.prompt" title="Link to this definition"></a></dt>
+<dd><p>An optional text to guide the model’s style or continue a previous audio
+segment.</p>
+<p>The [prompt](<a class="reference external" href="https://platform.openai.com/docs/guides/speech-to-text/prompting">https://platform.openai.com/docs/guides/speech-to-text/prompting</a>)
+should be in English.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.translation_create_params.TranslationCreateParams.response_format">
+<span class="sig-name descname"><span class="pre">response_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#openai.types.audio.translation_create_params.TranslationCreateParams.response_format" title="Link to this definition"></a></dt>
+<dd><p><cite>json</cite>, <cite>text</cite>,
+<cite>srt</cite>, <cite>verbose_json</cite>, or <cite>vtt</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The format of the transcript output, in one of these options</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openai.types.audio.translation_create_params.TranslationCreateParams.temperature">
+<span class="sig-name descname"><span class="pre">temperature</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#openai.types.audio.translation_create_params.TranslationCreateParams.temperature" title="Link to this definition"></a></dt>
+<dd><p>The sampling temperature, between 0 and 1.</p>
+<p>Higher values like 0.8 will make the output more random, while lower values like
+0.2 will make it more focused and deterministic. If set to 0, the model will use
+[log probability](<a class="reference external" href="https://en.wikipedia.org/wiki/Log_probability">https://en.wikipedia.org/wiki/Log_probability</a>) to
+automatically increase the temperature until certain thresholds are hit.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-openai.types.audio">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-openai.types.audio" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-import json
 from typing import Any, AsyncIterable, Literal
 
 from fastapi import APIRouter  # type: ignore
@@ -6,7 +5,7 @@ from fastapi.responses import StreamingResponse  # type: ignore
 from openai import AsyncOpenAI
 from sse_starlette.sse import EventSourceResponse  # type: ignore
 
-from ..services import ElevenLabsAPIClient, PineCone  # type: ignore
+from ..tools import ElevenLabsAPIClient, PineCone  # type: ignore
 
 HDRS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) "
@@ -167,7 +166,7 @@ class AIController(APIRouter):
                 return content
         raise ValueError("No content found in response.")
 
-    async def similarity_search(self, *, text: str, namespace: str):
+    async def similarity_search(self, *, text: str, namespace: str, k: int = 10):
         """
         Searches for similar text in the given namespace.
 
@@ -179,7 +178,9 @@ class AIController(APIRouter):
                 list[dict]: A list of similar text.
         """
         pinecone = self.vectordb(namespace=namespace)
-        return await pinecone.query(text=text)
+        return await pinecone.query(
+            text=text, expr=(pinecone.builder("namespace") == namespace).query, topK=k
+        )
 
     async def text_to_voice(self, *, text: str) -> AsyncIterable[bytes]:
         """
@@ -194,7 +195,9 @@ class AIController(APIRouter):
         async for chunk in self.xilabs.text_to_speech_stream(text=text):
             yield chunk
 
-    async def chatgpt(self, *, text: str, namespace: str) -> AsyncIterable[str]:
+    async def chatgpt(
+        self, *, text: str, namespace: str, k: int = 5
+    ) -> AsyncIterable[str]:
         """
         Generates a response to the given text using the ChatGPT API.
 
@@ -204,25 +207,30 @@ class AIController(APIRouter):
         Yields:
             str: A response to the given text.
         """
-        retrieved = await self.similarity_search(text=text, namespace=namespace)
-        context_window = "\n".join(r.json() for r in retrieved or [])
+        retrieved = await self.similarity_search(text=text, namespace=namespace, k=k)
+        context_window = "\n\n".join(
+            f"Score: {r.score}\nText: {r.text}" for r in retrieved
+        )
         stream = await self.chat.create(
             messages=[
                 {"role": "user", "content": text},
                 {
                     "role": "system",
-                    "content": f"Relevant results from knowledge base:\n{context_window}",
+                    "content": f"The relevant results according to user's query are: {context_window}",
                 },
             ],
             model="gpt-4-1106-preview",
             stream=True,
         )
+        string = ""
         async for message in stream:
             for choice in message.choices:
                 chunk = choice.delta.content
                 if chunk:
+                    string += chunk
                     yield chunk
-        yield {"event": "done", "data": ""}  # type: ignore
+        await self.vectordb(namespace=namespace).upsert(text=string)
+        yield {"event": "done", "data": string}  # type: ignore
 
 
 def setup_ai_routes():
@@ -274,15 +282,11 @@ def setup_ai_routes():
         return await ai.visualize_images(text=text, url=urls)
 
     @ai.get("/search/{namespace}")
-    async def _(text: str, namespace: str):
-        return await ai.similarity_search(text=text, namespace=namespace)
+    async def _(text: str, namespace: str, k: int = 10):
+        return await ai.similarity_search(text=text, namespace=namespace, k=k)
 
     @ai.get("/chat/{namespace}")
     async def _(text: str, namespace: str):
         return EventSourceResponse(ai.chatgpt(text=text, namespace=namespace))
-
-    @ai.get("/voice")
-    async def _(text: str):
-        return StreamingResponse(ai.text_to_voice(text=text), media_type="audio/opus")
 
     return ai

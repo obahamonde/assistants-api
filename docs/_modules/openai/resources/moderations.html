@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openai.resources.moderations &mdash; OpenAI 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=29a6c3e3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenAI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenAI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">openai.resources.moderations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for openai.resources.moderations</h1><div class="highlight"><pre>
+<span></span><span class="c1"># File generated from our OpenAPI spec by Stainless.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">httpx</span>
+
+<span class="kn">from</span> <span class="nn">..types</span> <span class="kn">import</span> <span class="n">ModerationCreateResponse</span><span class="p">,</span> <span class="n">moderation_create_params</span>
+<span class="kn">from</span> <span class="nn">.._types</span> <span class="kn">import</span> <span class="n">NOT_GIVEN</span><span class="p">,</span> <span class="n">Body</span><span class="p">,</span> <span class="n">Query</span><span class="p">,</span> <span class="n">Headers</span><span class="p">,</span> <span class="n">NotGiven</span>
+<span class="kn">from</span> <span class="nn">.._utils</span> <span class="kn">import</span> <span class="n">maybe_transform</span>
+<span class="kn">from</span> <span class="nn">.._resource</span> <span class="kn">import</span> <span class="n">SyncAPIResource</span><span class="p">,</span> <span class="n">AsyncAPIResource</span>
+<span class="kn">from</span> <span class="nn">.._response</span> <span class="kn">import</span> <span class="n">to_raw_response_wrapper</span><span class="p">,</span> <span class="n">async_to_raw_response_wrapper</span>
+<span class="kn">from</span> <span class="nn">.._base_client</span> <span class="kn">import</span> <span class="n">make_request_options</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.._client</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Moderations&quot;</span><span class="p">,</span> <span class="s2">&quot;AsyncModerations&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Moderations">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.moderations.Moderations">[docs]</a>
+<span class="k">class</span> <span class="nc">Moderations</span><span class="p">(</span><span class="n">SyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">ModerationsWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">OpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">ModerationsWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Moderations.create">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.moderations.Moderations.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;text-moderation-latest&quot;</span><span class="p">,</span> <span class="s2">&quot;text-moderation-stable&quot;</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModerationCreateResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Classifies if text violates OpenAI&#39;s Content Policy</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          input: The input text to classify</span>
+
+<span class="sd">          model: Two content moderations models are available: `text-moderation-stable` and</span>
+<span class="sd">              `text-moderation-latest`.</span>
+
+<span class="sd">              The default is `text-moderation-latest` which will be automatically upgraded</span>
+<span class="sd">              over time. This ensures you are always using our most accurate model. If you use</span>
+<span class="sd">              `text-moderation-stable`, we will provide advanced notice before updating the</span>
+<span class="sd">              model. Accuracy of `text-moderation-stable` may be slightly lower than for</span>
+<span class="sd">              `text-moderation-latest`.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/moderations&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="nb">input</span><span class="p">,</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">moderation_create_params</span><span class="o">.</span><span class="n">ModerationCreateParams</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">ModerationCreateResponse</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AsyncModerations">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.moderations.AsyncModerations">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncModerations</span><span class="p">(</span><span class="n">AsyncAPIResource</span><span class="p">):</span>
+    <span class="n">with_raw_response</span><span class="p">:</span> <span class="n">AsyncModerationsWithRawResponse</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncOpenAI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">with_raw_response</span> <span class="o">=</span> <span class="n">AsyncModerationsWithRawResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AsyncModerations.create">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.moderations.AsyncModerations.create">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="nb">input</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;text-moderation-latest&quot;</span><span class="p">,</span> <span class="s2">&quot;text-moderation-stable&quot;</span><span class="p">]]</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+        <span class="c1"># Use the following arguments if you need to pass additional parameters to the API that aren&#39;t available via kwargs.</span>
+        <span class="c1"># The extra values given here take precedence over values defined on the client or passed to this method.</span>
+        <span class="n">extra_headers</span><span class="p">:</span> <span class="n">Headers</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_body</span><span class="p">:</span> <span class="n">Body</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NotGiven</span> <span class="o">=</span> <span class="n">NOT_GIVEN</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModerationCreateResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Classifies if text violates OpenAI&#39;s Content Policy</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          input: The input text to classify</span>
+
+<span class="sd">          model: Two content moderations models are available: `text-moderation-stable` and</span>
+<span class="sd">              `text-moderation-latest`.</span>
+
+<span class="sd">              The default is `text-moderation-latest` which will be automatically upgraded</span>
+<span class="sd">              over time. This ensures you are always using our most accurate model. If you use</span>
+<span class="sd">              `text-moderation-stable`, we will provide advanced notice before updating the</span>
+<span class="sd">              model. Accuracy of `text-moderation-stable` may be slightly lower than for</span>
+<span class="sd">              `text-moderation-latest`.</span>
+
+<span class="sd">          extra_headers: Send extra headers</span>
+
+<span class="sd">          extra_query: Add additional query parameters to the request</span>
+
+<span class="sd">          extra_body: Add additional JSON properties to the request</span>
+
+<span class="sd">          timeout: Override the client-level default timeout for this request, in seconds</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+            <span class="s2">&quot;/moderations&quot;</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="nb">input</span><span class="p">,</span>
+                    <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">moderation_create_params</span><span class="o">.</span><span class="n">ModerationCreateParams</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+                <span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span> <span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span> <span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+            <span class="p">),</span>
+            <span class="n">cast_to</span><span class="o">=</span><span class="n">ModerationCreateResponse</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ModerationsWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.moderations.ModerationsWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">ModerationsWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">moderations</span><span class="p">:</span> <span class="n">Moderations</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">moderations</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AsyncModerationsWithRawResponse">
+<a class="viewcode-back" href="../../../openai.resources.html#openai.resources.moderations.AsyncModerationsWithRawResponse">[docs]</a>
+<span class="k">class</span> <span class="nc">AsyncModerationsWithRawResponse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">moderations</span><span class="p">:</span> <span class="n">AsyncModerations</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">async_to_raw_response_wrapper</span><span class="p">(</span>
+            <span class="n">moderations</span><span class="o">.</span><span class="n">create</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, openai llc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

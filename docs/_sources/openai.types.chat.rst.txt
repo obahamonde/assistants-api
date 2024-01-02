@@ -1,0 +1,181 @@
+openai.types.chat package
+=========================
+
+Submodules
+----------
+
+openai.types.chat.chat\_completion module
+-----------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_assistant\_message\_param module
+--------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_assistant_message_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_chunk module
+------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_chunk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_content\_part\_image\_param module
+----------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_content_part_image_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_content\_part\_param module
+---------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_content_part_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_content\_part\_text\_param module
+---------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_content_part_text_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_function\_call\_option\_param module
+------------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_function_call_option_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_function\_message\_param module
+-------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_function_message_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_message module
+--------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_message
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_message\_param module
+---------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_message_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_message\_tool\_call module
+--------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_message_tool_call
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_message\_tool\_call\_param module
+---------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_message_tool_call_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_named\_tool\_choice\_param module
+---------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_named_tool_choice_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_role module
+-----------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_role
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_system\_message\_param module
+-----------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_system_message_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_token\_logprob module
+---------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_token_logprob
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_tool\_choice\_option\_param module
+----------------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_tool_choice_option_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_tool\_message\_param module
+---------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_tool_message_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_tool\_param module
+------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_tool_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.chat\_completion\_user\_message\_param module
+---------------------------------------------------------------
+
+.. automodule:: openai.types.chat.chat_completion_user_message_param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.chat.completion\_create\_params module
+---------------------------------------------------
+
+.. automodule:: openai.types.chat.completion_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.chat
+   :members:
+   :undoc-members:
+   :show-inheritance:

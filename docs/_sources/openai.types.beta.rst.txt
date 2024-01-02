@@ -1,0 +1,103 @@
+openai.types.beta package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.types.beta.assistants
+   openai.types.beta.chat
+   openai.types.beta.threads
+
+Submodules
+----------
+
+openai.types.beta.assistant module
+----------------------------------
+
+.. automodule:: openai.types.beta.assistant
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistant\_create\_params module
+--------------------------------------------------
+
+.. automodule:: openai.types.beta.assistant_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistant\_deleted module
+-------------------------------------------
+
+.. automodule:: openai.types.beta.assistant_deleted
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistant\_list\_params module
+------------------------------------------------
+
+.. automodule:: openai.types.beta.assistant_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.assistant\_update\_params module
+--------------------------------------------------
+
+.. automodule:: openai.types.beta.assistant_update_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.thread module
+-------------------------------
+
+.. automodule:: openai.types.beta.thread
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.thread\_create\_and\_run\_params module
+---------------------------------------------------------
+
+.. automodule:: openai.types.beta.thread_create_and_run_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.thread\_create\_params module
+-----------------------------------------------
+
+.. automodule:: openai.types.beta.thread_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.thread\_deleted module
+----------------------------------------
+
+.. automodule:: openai.types.beta.thread_deleted
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.thread\_update\_params module
+-----------------------------------------------
+
+.. automodule:: openai.types.beta.thread_update_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.beta
+   :members:
+   :undoc-members:
+   :show-inheritance:

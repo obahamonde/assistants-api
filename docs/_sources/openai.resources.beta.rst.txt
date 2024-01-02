@@ -1,0 +1,30 @@
+openai.resources.beta package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.resources.beta.assistants
+   openai.resources.beta.threads
+
+Submodules
+----------
+
+openai.resources.beta.beta module
+---------------------------------
+
+.. automodule:: openai.resources.beta.beta
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.resources.beta
+   :members:
+   :undoc-members:
+   :show-inheritance:

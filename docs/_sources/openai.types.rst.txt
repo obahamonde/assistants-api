@@ -1,0 +1,258 @@
+openai.types package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   openai.types.audio
+   openai.types.beta
+   openai.types.chat
+   openai.types.fine_tuning
+   openai.types.shared
+   openai.types.shared_params
+
+Submodules
+----------
+
+openai.types.completion module
+------------------------------
+
+.. automodule:: openai.types.completion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.completion\_choice module
+--------------------------------------
+
+.. automodule:: openai.types.completion_choice
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.completion\_create\_params module
+----------------------------------------------
+
+.. automodule:: openai.types.completion_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.completion\_usage module
+-------------------------------------
+
+.. automodule:: openai.types.completion_usage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.create\_embedding\_response module
+-----------------------------------------------
+
+.. automodule:: openai.types.create_embedding_response
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.edit module
+------------------------
+
+.. automodule:: openai.types.edit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.edit\_create\_params module
+----------------------------------------
+
+.. automodule:: openai.types.edit_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.embedding module
+-----------------------------
+
+.. automodule:: openai.types.embedding
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.embedding\_create\_params module
+---------------------------------------------
+
+.. automodule:: openai.types.embedding_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.file\_content module
+---------------------------------
+
+.. automodule:: openai.types.file_content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.file\_create\_params module
+----------------------------------------
+
+.. automodule:: openai.types.file_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.file\_deleted module
+---------------------------------
+
+.. automodule:: openai.types.file_deleted
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.file\_list\_params module
+--------------------------------------
+
+.. automodule:: openai.types.file_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.file\_object module
+--------------------------------
+
+.. automodule:: openai.types.file_object
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tune module
+------------------------------
+
+.. automodule:: openai.types.fine_tune
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tune\_create\_params module
+----------------------------------------------
+
+.. automodule:: openai.types.fine_tune_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tune\_event module
+-------------------------------------
+
+.. automodule:: openai.types.fine_tune_event
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tune\_events\_list\_response module
+------------------------------------------------------
+
+.. automodule:: openai.types.fine_tune_events_list_response
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.fine\_tune\_list\_events\_params module
+----------------------------------------------------
+
+.. automodule:: openai.types.fine_tune_list_events_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.image module
+-------------------------
+
+.. automodule:: openai.types.image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.image\_create\_variation\_params module
+----------------------------------------------------
+
+.. automodule:: openai.types.image_create_variation_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.image\_edit\_params module
+---------------------------------------
+
+.. automodule:: openai.types.image_edit_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.image\_generate\_params module
+-------------------------------------------
+
+.. automodule:: openai.types.image_generate_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.images\_response module
+------------------------------------
+
+.. automodule:: openai.types.images_response
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.model module
+-------------------------
+
+.. automodule:: openai.types.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.model\_deleted module
+----------------------------------
+
+.. automodule:: openai.types.model_deleted
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.moderation module
+------------------------------
+
+.. automodule:: openai.types.moderation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.moderation\_create\_params module
+----------------------------------------------
+
+.. automodule:: openai.types.moderation_create_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.moderation\_create\_response module
+------------------------------------------------
+
+.. automodule:: openai.types.moderation_create_response
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types
+   :members:
+   :undoc-members:
+   :show-inheritance:

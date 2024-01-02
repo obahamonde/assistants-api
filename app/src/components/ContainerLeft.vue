@@ -21,7 +21,7 @@ defineProps<{
     v-if="show"
   >
     <ApiThreads :user="user" />
-        <ApiUser :user="user" />
+    <ApiUser :user="user" />
   </section>
 </template>
 <style scoped></style>

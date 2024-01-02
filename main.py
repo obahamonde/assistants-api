@@ -1,18 +1,21 @@
 from typing import Any, Awaitable, Callable
 
 from dotenv import load_dotenv
-from fastapi import Request, Response
+from fastapi import BackgroundTasks, Request, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 
 from src import create_app
-from src.resources.functions import OpenAIFunction
-from src.services.apps import GmailSendFunction, GoogleSearchFunction
-from src.services.apps.google_gmail import (
-    GmailAPIClient,
-    GoogleAPIClient,
-    SiteMapFunction,
-)
+from src.schemas.functions import OpenAIFunction
+from src.tools.apps import GmailSendFunction, GoogleSearchFunction
+from src.tools.apps.google_gmail import GmailAPIClient, GoogleAPIClient, SiteMapFunction
+from src.tools.vector import PineDantic
+
+
+class Text(BaseModel):
+    text: str
+
 
 load_dotenv()
 
@@ -29,7 +32,13 @@ async def function_call(text: str):
     return await OpenAIFunction.exec(text)  # type: ignore
 
 
-@app.get("/api/sitemap")
-async def sitemap_xml(url: str):
-    func = SiteMapFunction(base_url=url)
-    return await func()
+@app.get("/api/retrieval/{namespace}")
+async def retrieval(namespace: str, text: str):
+    func = PineDantic(namespace=namespace)
+    return await func.query(text=text)
+
+
+@app.post("/api/retrieval/{namespace}")
+async def upsert(request: Text, namespace: str):
+    func = PineDantic(namespace=namespace)
+    return await func.upsert(text=request.text)

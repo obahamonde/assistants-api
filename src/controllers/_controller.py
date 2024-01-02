@@ -3,7 +3,7 @@ from typing import Generic, TypeVar
 from fastapi import APIRouter
 from pydantic import BaseModel  # pylint: disable=E0611
 
-from ..resources._service import Service
+from ..schemas._service import Service
 
 I = TypeVar("I", bound=BaseModel)
 O = TypeVar("O", bound=BaseModel)

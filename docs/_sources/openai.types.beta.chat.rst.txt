@@ -1,0 +1,10 @@
+openai.types.beta.chat package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: openai.types.beta.chat
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -2,7 +2,6 @@
 import useStore from "~/store";
 const { state } = useStore();
 const { loginWithRedirect } = useAuth();
-
 </script>
 <template>
   <AppMain :user="state.user" v-if="state.user" />

@@ -22,9 +22,12 @@ const handleBlur = () => {
       for="formField"
       :class="
         isFocused
-          ? 'text-accent  ease-in-out duration-300' : text.length > 0 ?  'text-transparent translate-y-8 text-lg ease-in-out duration-300 cursor-text'
-      : 'text-accent  translate-y-8 text-lg ease-in-out duration-300 cursor-text'
-"      @click.prevent="isFocused ? null : handleFocus()"
+          ? 'text-accent  ease-in-out duration-300'
+          : text.length > 0
+          ? 'text-transparent translate-y-8 text-lg ease-in-out duration-300 cursor-text'
+          : 'text-accent  translate-y-8 text-lg ease-in-out duration-300 cursor-text'
+      "
+      @click.prevent="isFocused ? null : handleFocus()"
       >{{ name }}</label
     >
     <input
@@ -32,10 +35,7 @@ const handleBlur = () => {
       type="text"
       name="formField"
       v-model="text"
-      class="text-gray-500 px-4 py-2  outline-none
-      bg-transparent
-      border-b-2 border-gray-500 
-			"
+      class="text-gray-500 px-4 py-2 outline-none bg-transparent border-b-2 border-gray-500"
       @change="$emit('change', text)"
       @focus="handleFocus"
       @blur="handleBlur"

@@ -47,14 +47,14 @@ const { isOverDropZone } = useDropZone(dropZoneRef, onDrop);
           @click="useInputElement()"
           @click.right.prevent="$emit('see')"
         />
-          <span class="bg-accent px-2 fixed translate-x-6 translate-y-6 col center text-xs rf">{{ state.files.length }}</span>
-       <AppRun v-slot="{ exec }">
-        <InputText :user="user" :exec="exec" />
-         
-        <Icon
-          icon="mdi-send"
-          class="text-gray-500 x3 cp scale"
-          @click="exec"
+        <span
+          class="bg-accent px-2 fixed translate-x-6 translate-y-6 col center text-xs rf"
+          >{{ state.files.length }}</span
+        >
+        <AppRun v-slot="{ exec }">
+          <InputText :user="user" :exec="exec" />
+
+          <Icon icon="mdi-send" class="text-gray-500 x3 cp scale" @click="exec"
         /></AppRun>
       </p>
     </div>

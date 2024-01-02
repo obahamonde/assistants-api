@@ -1,0 +1,29 @@
+openai.types.beta.threads.messages package
+==========================================
+
+Submodules
+----------
+
+openai.types.beta.threads.messages.file\_list\_params module
+------------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.messages.file_list_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+openai.types.beta.threads.messages.message\_file module
+-------------------------------------------------------
+
+.. automodule:: openai.types.beta.threads.messages.message_file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: openai.types.beta.threads.messages
+   :members:
+   :undoc-members:
+   :show-inheritance:
