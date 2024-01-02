@@ -6,3 +6,4 @@ static/*
 .DS_Store
 certificates.pem
 config.yaml
+docs/*
